@@ -53,6 +53,12 @@
   font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
 }
 
+/* Prevent scroll chaining from dropdowns to body background */
+.overscroll-contain {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Enhanced Gradient Text Styles */
 .gradient-text-gold {
   background: linear-gradient(135deg, #92400e 0%, #b45309 40%, #d97706 80%, #f59e0b 100%);

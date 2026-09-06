@@ -37,7 +37,7 @@ export const NotificationDrawer = ({ isOpen, onClose }) => {
         </div>
 
         {/* Notifications List */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+        <div className="flex-1 overflow-y-auto overscroll-contain p-4 space-y-3" onWheel={(e) => e.stopPropagation()}>
           {userNotifs.length === 0 ? (
             <div className="text-center py-16 text-slate-400 space-y-3">
               <Bell className="w-10 h-10 mx-auto text-slate-300 stroke-1" />

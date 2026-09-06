@@ -239,7 +239,7 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
                       <span>Digitalization Modules</span>
                       <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                     </div>
-                    <div className="py-1 max-h-80 overflow-y-auto space-y-0.5">
+                    <div className="py-1 max-h-80 overflow-y-auto overscroll-contain space-y-0.5" onWheel={(e) => e.stopPropagation()}>
                       {adminNavItems.map((item) => {
                         const Icon = item.icon;
                         return (

@@ -12,11 +12,18 @@ import {
   X,
   LogOut,
   ChevronDown,
-  QrCode
+  QrCode,
+  Clock,
+  HeartHandshake,
+  Video,
+  Home,
+  MessageSquare,
+  FolderLock,
+  Globe
 } from 'lucide-react';
 
 export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRScanner }) => {
-  const { currentRole, currentUser, switchRole, notifications, churchSettings } = useChurch();
+  const { currentRole, currentUser, switchRole, notifications, churchSettings, churches, currentChurch, setCurrentChurch } = useChurch();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
 
@@ -24,28 +31,26 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
 
   const publicNavItems = [
     { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About Us' },
+    { id: 'history', label: '40-Year History' },
+    { id: 'about', label: 'Vision & Values' },
+    { id: 'social-public', label: 'Social Relief' },
     { id: 'ministries', label: 'Ministries' },
-    { id: 'events', label: 'Events & Notices' },
+    { id: 'events', label: 'Events' },
+    { id: 'media-public', label: 'Media Library' },
     { id: 'contact', label: 'Contact' },
   ];
 
-  const workerNavItems = [
-    { id: 'worker-dashboard', label: 'My Portal', icon: LayoutDashboard },
-    { id: 'worker-profile', label: 'My Profile', icon: UserCheck },
-    { id: 'worker-attendance', label: 'Attendance Check-in', icon: QrCode },
-    { id: 'worker-leave', label: 'Apply Leave', icon: Calendar },
-    { id: 'worker-schedule', label: 'My Schedule', icon: Calendar },
-  ];
-
   const adminNavItems = [
-    { id: 'admin-dashboard', label: 'Admin Dashboard', icon: LayoutDashboard },
+    { id: 'admin-dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'admin-families', label: 'Family & Members', icon: Home },
+    { id: 'admin-attendance', label: 'Smart Gates', icon: QrCode },
+    { id: 'admin-care', label: 'Member Care', icon: HeartHandshake },
+    { id: 'admin-social', label: 'Social Service', icon: Users },
+    { id: 'admin-comm', label: 'WhatsApp Broadcast', icon: MessageSquare },
     { id: 'admin-workers', label: 'Workers', icon: Users },
     { id: 'admin-departments', label: 'Departments', icon: Building2 },
-    { id: 'admin-attendance', label: 'Attendance Logs', icon: QrCode },
-    { id: 'admin-leave', label: 'Leave Requests', icon: Calendar },
-    { id: 'admin-schedules', label: 'Schedules', icon: Calendar },
-    { id: 'admin-reports', label: 'Reports', icon: FileText },
+    { id: 'admin-docs', label: 'Document Vault', icon: FolderLock },
+    { id: 'admin-reports', label: 'Reports & Analytics', icon: FileText },
   ];
 
   const isStaffOrAdmin = ['Worker', 'Department Leader', 'Church Admin', 'Super Admin'].includes(currentRole);
@@ -56,7 +61,7 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 gap-4">
-          
+
           {/* Logo & Church Name */}
           <div
             onClick={() => setActiveTab('home')}
@@ -66,23 +71,39 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
               {churchSettings.logo || '⛪'}
             </div>
             <div className="whitespace-nowrap">
-              <span className="font-serif-spiritual text-lg font-bold tracking-tight text-slate-900 group-hover:text-amber-600 transition-colors block leading-tight">
+              <span className="font-serif-spiritual text-base sm:text-lg font-bold tracking-tight text-slate-900 group-hover:text-amber-600 transition-colors block leading-tight">
                 {churchSettings.name}
               </span>
               <span className="text-[10px] text-amber-600 font-extrabold tracking-wider uppercase block">
-                Management & Attendance System
+                Central Digitalization Platform
               </span>
             </div>
           </div>
 
+          {/* Multi-Tenant Organization Switcher */}
+          <div className="hidden lg:flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700">
+            <Globe className="w-3.5 h-3.5 text-amber-600" />
+            <select
+              value={currentChurch?.id || churches[0].id}
+              onChange={(e) => {
+                const found = churches.find(c => c.id === e.target.value);
+                if (found) setCurrentChurch(found);
+              }}
+              className="bg-transparent font-bold text-slate-900 focus:outline-none cursor-pointer text-xs"
+            >
+              {churches.map(c => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
+            </select>
+          </div>
+
           {/* Navigation Links - Desktop */}
           <div className="hidden xl:flex items-center space-x-1">
-            {/* Public Section Tabs */}
             {publicNavItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
+                className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   activeTab === item.id
                     ? 'bg-amber-50 text-amber-800 border border-amber-200 shadow-xs'
                     : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
@@ -92,34 +113,15 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
               </button>
             ))}
 
-            {/* Portal Switch Button Divider */}
-            {isStaffOrAdmin && (
-              <div className="h-6 w-[1px] bg-slate-200 mx-1.5" />
-            )}
+            {isStaffOrAdmin && <div className="h-6 w-[1px] bg-slate-200 mx-1" />}
 
-            {/* Staff / Worker Portal Shortcut */}
-            {isStaffOrAdmin && (
-              <button
-                onClick={() => setActiveTab('worker-dashboard')}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
-                  activeTab.startsWith('worker-')
-                    ? 'bg-emerald-100 border border-emerald-300 text-emerald-900'
-                    : 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200'
-                }`}
-              >
-                <UserCheck className="w-3.5 h-3.5" />
-                <span>Worker Portal</span>
-              </button>
-            )}
-
-            {/* Admin Portal Shortcut */}
             {isAdmin && (
               <button
                 onClick={() => setActiveTab('admin-dashboard')}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                   activeTab.startsWith('admin-')
-                    ? 'bg-amber-100 border border-amber-300 text-amber-900'
-                    : 'bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200'
+                    ? 'bg-amber-500 text-slate-950 shadow-md'
+                    : 'bg-amber-50 text-amber-900 hover:bg-amber-100 border border-amber-200'
                 }`}
               >
                 <LayoutDashboard className="w-3.5 h-3.5" />
@@ -128,21 +130,18 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
             )}
           </div>
 
-          {/* Right Action Icons: QR Scanner, Notifications, Profile Dropdown */}
-          <div className="hidden sm:flex items-center gap-2.5 shrink-0">
-            
-            {/* Quick QR Check-in Button */}
+          {/* Right Actions: QR Scanner, Notifications, Profile Dropdown */}
+          <div className="hidden sm:flex items-center gap-2 shrink-0">
             {isStaffOrAdmin && (
               <button
                 onClick={onOpenQRScanner}
-                className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 px-3.5 py-2 rounded-xl font-bold text-xs shadow-xs transition-all hover:scale-105 whitespace-nowrap"
+                className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 px-3.5 py-2 rounded-xl font-bold text-xs shadow-xs transition-all whitespace-nowrap"
               >
                 <QrCode className="w-4 h-4" />
-                <span>Scan QR Attendance</span>
+                <span>Smart Gate Scan</span>
               </button>
             )}
 
-            {/* Notification Bell */}
             <button
               onClick={onOpenNotifications}
               className="relative p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-all shrink-0"
@@ -156,13 +155,11 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
               )}
             </button>
 
-            {/* User Profile Avatar / Login Button */}
             {currentUser ? (
               <div className="relative shrink-0">
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                   className="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 p-1 rounded-2xl border border-slate-200 transition-all"
-                  title={`${currentUser.name} (${currentUser.role})`}
                 >
                   <img
                     src={currentUser.photo}
@@ -171,7 +168,6 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
                   />
                   <ChevronDown className="w-3.5 h-3.5 text-slate-500 mr-1" />
                 </button>
-
 
                 {userDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-2xl shadow-xl p-2 z-50">
@@ -185,49 +181,19 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
 
                     <div className="py-1">
                       <button
-                        onClick={() => {
-                          setActiveTab('worker-dashboard');
-                          setUserDropdownOpen(false);
-                        }}
-                        className="w-full text-left px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 rounded-xl flex items-center gap-2"
+                        onClick={() => { setActiveTab('admin-dashboard'); setUserDropdownOpen(false); }}
+                        className="w-full text-left px-3 py-2 text-xs font-bold text-amber-700 hover:bg-amber-50 rounded-xl flex items-center gap-2"
                       >
-                        <UserCheck className="w-4 h-4 text-emerald-600" />
-                        Worker Dashboard
+                        <LayoutDashboard className="w-4 h-4 text-amber-600" /> Admin Console
                       </button>
-                      <button
-                        onClick={() => {
-                          setActiveTab('worker-profile');
-                          setUserDropdownOpen(false);
-                        }}
-                        className="w-full text-left px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 rounded-xl flex items-center gap-2"
-                      >
-                        <UserCheck className="w-4 h-4 text-blue-600" />
-                        My Profile & ID Card
-                      </button>
-                      {isAdmin && (
-                        <button
-                          onClick={() => {
-                            setActiveTab('admin-dashboard');
-                            setUserDropdownOpen(false);
-                          }}
-                          className="w-full text-left px-3 py-2 text-xs font-bold text-amber-700 hover:bg-amber-50 rounded-xl flex items-center gap-2"
-                        >
-                          <LayoutDashboard className="w-4 h-4 text-amber-600" />
-                          Admin Console
-                        </button>
-                      )}
                     </div>
 
                     <div className="pt-1 border-t border-slate-100">
                       <button
-                        onClick={() => {
-                          switchRole('Visitor');
-                          setUserDropdownOpen(false);
-                        }}
+                        onClick={() => { switchRole('Visitor'); setUserDropdownOpen(false); }}
                         className="w-full text-left px-3 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 rounded-xl flex items-center gap-2"
                       >
-                        <LogOut className="w-4 h-4 text-rose-600" />
-                        Logout to Visitor
+                        <LogOut className="w-4 h-4 text-rose-600" /> Switch to Visitor Mode
                       </button>
                     </div>
                   </div>
@@ -235,28 +201,16 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
               </div>
             ) : (
               <button
-                onClick={() => switchRole('Worker')}
-                className="bg-amber-500 hover:bg-amber-600 text-slate-950 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-xs shrink-0"
+                onClick={() => switchRole('Church Admin')}
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-xs shrink-0"
               >
-                Worker Login
+                Admin Login
               </button>
             )}
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex xl:hidden items-center gap-2">
-            <button
-              onClick={onOpenNotifications}
-              className="p-2 rounded-xl bg-slate-100 text-slate-700 relative"
-            >
-              <Bell className="w-5 h-5" />
-              {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-amber-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                  {unreadCount}
-                </span>
-              )}
-            </button>
-
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200"
@@ -275,12 +229,9 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
             {publicNavItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => {
-                  setActiveTab(item.id);
-                  setMobileMenuOpen(false);
-                }}
+                onClick={() => { setActiveTab(item.id); setMobileMenuOpen(false); }}
                 className={`px-3 py-2 rounded-xl text-xs font-medium text-left ${
-                  activeTab === item.id ? 'bg-amber-500 text-white font-bold' : 'bg-slate-100 text-slate-700'
+                  activeTab === item.id ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-100 text-slate-700'
                 }`}
               >
                 {item.label}
@@ -288,45 +239,16 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
             ))}
           </div>
 
-          {isStaffOrAdmin && (
-            <>
-              <div className="text-xs font-bold uppercase text-emerald-600 tracking-wider pt-2">Worker Portal</div>
-              <div className="grid grid-cols-2 gap-2">
-                {workerNavItems.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => {
-                        setActiveTab(item.id);
-                        setMobileMenuOpen(false);
-                      }}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-left ${
-                        activeTab === item.id ? 'bg-emerald-600 text-white font-bold' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                      }`}
-                    >
-                      <Icon className="w-3.5 h-3.5" />
-                      {item.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </>
-          )}
-
           {isAdmin && (
             <>
-              <div className="text-xs font-bold uppercase text-amber-600 tracking-wider pt-2">Admin Dashboard</div>
+              <div className="text-xs font-bold uppercase text-amber-600 tracking-wider pt-2">Admin Digitalization Modules</div>
               <div className="grid grid-cols-2 gap-2">
                 {adminNavItems.map((item) => {
                   const Icon = item.icon;
                   return (
                     <button
                       key={item.id}
-                      onClick={() => {
-                        setActiveTab(item.id);
-                        setMobileMenuOpen(false);
-                      }}
+                      onClick={() => { setActiveTab(item.id); setMobileMenuOpen(false); }}
                       className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-left ${
                         activeTab === item.id ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-amber-50 text-amber-800 border border-amber-200'
                       }`}

@@ -19,13 +19,17 @@ import {
   Home,
   MessageSquare,
   FolderLock,
-  Globe
+  Globe,
+  Settings,
+  ShieldAlert,
+  Sparkles
 } from 'lucide-react';
 
 export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRScanner }) => {
   const { currentRole, currentUser, switchRole, notifications, churchSettings, churches, currentChurch, setCurrentChurch } = useChurch();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [adminMenuOpen, setAdminMenuOpen] = useState(false);
 
   const unreadCount = notifications.filter(n => !n.read && (n.userId === 'ALL' || n.userId === (currentUser ? currentUser.id : '') || (n.userId === 'ADMIN' && ['Church Admin', 'Super Admin'].includes(currentRole)))).length;
 
@@ -33,24 +37,26 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
     { id: 'home', label: 'Home' },
     { id: 'history', label: '40-Year History' },
     { id: 'about', label: 'Vision & Values' },
-    { id: 'social-public', label: 'Social Relief' },
+    { id: 'social-public', label: 'Social Work' },
     { id: 'ministries', label: 'Ministries' },
     { id: 'events', label: 'Events' },
-    { id: 'media-public', label: 'Media Library' },
+    { id: 'media-public', label: 'Media Archive' },
     { id: 'contact', label: 'Contact' },
   ];
 
   const adminNavItems = [
     { id: 'admin-dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'admin-families', label: 'Family & Members', icon: Home },
-    { id: 'admin-attendance', label: 'Smart Gates', icon: QrCode },
-    { id: 'admin-care', label: 'Member Care', icon: HeartHandshake },
-    { id: 'admin-social', label: 'Social Service', icon: Users },
-    { id: 'admin-comm', label: 'WhatsApp Broadcast', icon: MessageSquare },
-    { id: 'admin-workers', label: 'Workers', icon: Users },
+    { id: 'admin-families', label: 'Families & Members', icon: Home },
+    { id: 'admin-attendance', label: 'Smart Gate Attendance', icon: QrCode },
+    { id: 'admin-care', label: 'Member Care Cases', icon: HeartHandshake },
+    { id: 'admin-social', label: 'Social Service Projects', icon: Users },
+    { id: 'admin-comm', label: 'WhatsApp Communications', icon: MessageSquare },
+    { id: 'admin-workers', label: 'Workers Management', icon: Users },
     { id: 'admin-departments', label: 'Departments', icon: Building2 },
     { id: 'admin-docs', label: 'Document Vault', icon: FolderLock },
     { id: 'admin-reports', label: 'Reports & Analytics', icon: FileText },
+    { id: 'admin-audit', label: 'Audit Logs', icon: ShieldAlert },
+    { id: 'admin-settings', label: 'Church Settings', icon: Settings },
   ];
 
   const isStaffOrAdmin = ['Worker', 'Department Leader', 'Church Admin', 'Super Admin'].includes(currentRole);
@@ -59,6 +65,7 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
   return (
     <nav className="bg-white sticky top-0 z-40 border-b border-slate-200 shadow-sm transition-all w-full">
 
+      {/* Main Top Header Row */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 gap-4">
 
@@ -71,7 +78,7 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
               {churchSettings.logo || '⛪'}
             </div>
             <div className="whitespace-nowrap">
-              <span className="font-serif-spiritual text-base sm:text-lg font-bold tracking-tight text-slate-900 group-hover:text-amber-600 transition-colors block leading-tight">
+              <span className="font-serif-spiritual text-lg font-bold tracking-tight text-slate-900 group-hover:text-amber-600 transition-colors block leading-tight">
                 {churchSettings.name}
               </span>
               <span className="text-[10px] text-amber-600 font-extrabold tracking-wider uppercase block">
@@ -98,7 +105,7 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
           </div>
 
           {/* Navigation Links - Desktop */}
-          <div className="hidden xl:flex items-center space-x-1">
+          <div className="hidden lg:flex items-center space-x-1">
             {publicNavItems.map((item) => (
               <button
                 key={item.id}
@@ -113,24 +120,59 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
               </button>
             ))}
 
-            {isStaffOrAdmin && <div className="h-6 w-[1px] bg-slate-200 mx-1" />}
+            {isAdmin && <div className="h-6 w-[1px] bg-slate-200 mx-1" />}
 
+            {/* Admin Console Dropdown Shortcut */}
             {isAdmin && (
-              <button
-                onClick={() => setActiveTab('admin-dashboard')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
-                  activeTab.startsWith('admin-')
-                    ? 'bg-amber-500 text-slate-950 shadow-md'
-                    : 'bg-amber-50 text-amber-900 hover:bg-amber-100 border border-amber-200'
-                }`}
-              >
-                <LayoutDashboard className="w-3.5 h-3.5" />
-                <span>Admin Console</span>
-              </button>
+              <div className="relative">
+                <button
+                  onClick={() => setAdminMenuOpen(!adminMenuOpen)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                    activeTab.startsWith('admin-')
+                      ? 'bg-amber-500 text-slate-950 shadow-md'
+                      : 'bg-amber-50 text-amber-900 hover:bg-amber-100 border border-amber-200'
+                  }`}
+                >
+                  <LayoutDashboard className="w-3.5 h-3.5" />
+                  <span>Admin Console</span>
+                  <ChevronDown className="w-3 h-3 ml-0.5" />
+                </button>
+
+                {adminMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-64 bg-white border border-slate-200 rounded-2xl shadow-xl p-2 z-50 animate-fadeIn">
+                    <div className="px-3 py-2 border-b border-slate-100 font-bold text-xs text-slate-900 uppercase tracking-wider flex items-center justify-between">
+                      <span>Digitalization Modules</span>
+                      <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                    </div>
+                    <div className="py-1 max-h-80 overflow-y-auto space-y-0.5">
+                      {adminNavItems.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <button
+                            key={item.id}
+                            onClick={() => {
+                              setActiveTab(item.id);
+                              setAdminMenuOpen(false);
+                            }}
+                            className={`w-full text-left px-3 py-2 text-xs font-semibold rounded-xl flex items-center gap-2 transition-colors ${
+                              activeTab === item.id
+                                ? 'bg-amber-50 text-amber-900 font-bold'
+                                : 'text-slate-700 hover:bg-slate-100'
+                            }`}
+                          >
+                            <Icon className="w-4 h-4 text-amber-600" />
+                            {item.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
           </div>
 
-          {/* Right Actions: QR Scanner, Notifications, Profile Dropdown */}
+          {/* Right Action Icons */}
           <div className="hidden sm:flex items-center gap-2 shrink-0">
             {isStaffOrAdmin && (
               <button
@@ -210,7 +252,7 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex xl:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200"
@@ -221,9 +263,33 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
         </div>
       </div>
 
+      {/* Admin Modules Quick Sub-Bar (Visible when active tab is an admin view) */}
+      {activeTab.startsWith('admin-') && (
+        <div className="bg-slate-900 text-white border-t border-slate-800 px-4 py-2 overflow-x-auto scrollbar-none">
+          <div className="max-w-7xl mx-auto flex items-center gap-2 text-xs font-bold">
+            <span className="text-amber-400 shrink-0 font-mono text-[10px] uppercase tracking-wider pr-2 border-r border-slate-800">
+              Admin Quick Bar
+            </span>
+            {adminNavItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`px-3 py-1.5 rounded-xl whitespace-nowrap transition-all ${
+                  activeTab === item.id
+                    ? 'bg-amber-500 text-slate-950 font-extrabold shadow-sm'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
           <div className="text-xs font-bold uppercase text-slate-400 tracking-wider">Public Navigation</div>
           <div className="grid grid-cols-2 gap-2">
             {publicNavItems.map((item) => (

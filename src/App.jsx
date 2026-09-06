@@ -198,6 +198,11 @@ const MainLayout = () => {
         onClose={() => setIsPrayerModalOpen(false)}
       />
 
+      <DigitalGivingModal
+        isOpen={isGivingModalOpen}
+        onClose={() => setIsGivingModalOpen(false)}
+      />
+
       {/* Floating Live Sermon Audio Player */}
       <LiveAudioPlayer setActiveTab={setActiveTab} />
 
@@ -206,6 +211,7 @@ const MainLayout = () => {
         onOpenQRScanner={() => setIsQRScannerOpen(true)}
         onOpenIDCard={handleOpenIDCard}
         onOpenPrayerModal={() => setIsPrayerModalOpen(true)}
+        onOpenGivingModal={() => setIsGivingModalOpen(true)}
         setActiveTab={setActiveTab}
       />
 

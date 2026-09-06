@@ -17,11 +17,11 @@ export const DigitalIDCardModal = ({ isOpen, onClose, member = null }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
-      <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl border border-slate-200 relative">
+      <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl border border-slate-200 relative animate-scaleIn">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-700 bg-slate-100 rounded-full transition-colors"
+          className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-full transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
@@ -37,9 +37,9 @@ export const DigitalIDCardModal = ({ isOpen, onClose, member = null }) => {
 
         {/* PRINTABLE ID CARD CONTAINER */}
         <div ref={cardRef} className="print:m-0 print:shadow-none">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white p-6 shadow-xl border-2 border-amber-500/40 space-y-5">
-            {/* Background Decorative Crest */}
-            <div className="absolute top-0 right-0 -mr-12 -mt-12 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white p-6 shadow-2xl border-2 border-amber-500/50 space-y-5 hover-lift-lg transition-all group">
+            {/* Background Light Sheen & Aura */}
+            <div className="absolute top-0 right-0 -mr-12 -mt-12 w-48 h-48 bg-amber-500/15 rounded-full blur-2xl pointer-events-none animate-pulse" />
 
             {/* Card Header */}
             <div className="flex items-center justify-between border-b border-slate-700/80 pb-4">

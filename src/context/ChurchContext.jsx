@@ -29,10 +29,12 @@ const ChurchContext = createContext();
 export const ChurchProvider = ({ children }) => {
   // Active Role and Active User for simulation
   const [currentRole, setCurrentRole] = useState(() => {
-    return localStorage.getItem('gcc_role') || 'Church Admin';
+    return localStorage.getItem('gcc_role') || 'Visitor';
   });
 
   const [currentUser, setCurrentUser] = useState(() => {
+    const role = localStorage.getItem('gcc_role') || 'Visitor';
+    if (role === 'Visitor') return null;
     const stored = localStorage.getItem('gcc_user');
     if (stored) {
       try { return JSON.parse(stored); } catch (e) { /* ignore */ }

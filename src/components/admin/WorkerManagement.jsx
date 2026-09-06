@@ -31,17 +31,17 @@ export const WorkerManagement = ({ onOpenWorkerForm, onEditWorker }) => {
     <div className="space-y-8">
       
       {/* Header & Actions */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel p-8 rounded-3xl border border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
         <div>
-          <h1 className="font-serif-spiritual text-3xl font-extrabold text-slate-100">
+          <h1 className="font-serif-spiritual text-3xl font-extrabold text-slate-900">
             Worker Directory & <span className="gradient-text-gold">Management</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Add, edit, deactivate, assign roles, and manage church workers.</p>
+          <p className="text-xs text-slate-600 mt-1 font-medium">Add, edit, deactivate, assign roles, and manage church workers.</p>
         </div>
 
         <button
           onClick={onOpenWorkerForm}
-          className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-3 rounded-2xl font-bold text-xs shadow-lg shadow-amber-500/20 transition-all hover:scale-105"
+          className="flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 px-5 py-3 rounded-2xl font-bold text-xs shadow-md transition-all btn-shimmer hover-lift"
         >
           <Plus className="w-4 h-4" />
           Add New Worker
@@ -49,7 +49,7 @@ export const WorkerManagement = ({ onOpenWorkerForm, onEditWorker }) => {
       </div>
 
       {/* Filter Toolbar */}
-      <div className="glass-panel p-4 rounded-2xl border border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
         {/* Search */}
         <div className="relative">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -58,7 +58,7 @@ export const WorkerManagement = ({ onOpenWorkerForm, onEditWorker }) => {
             placeholder="Search name, worker ID, email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-amber-500"
+            className="w-full bg-slate-50 border border-slate-200 text-slate-900 font-medium rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-amber-500"
           />
         </div>
 
@@ -67,7 +67,7 @@ export const WorkerManagement = ({ onOpenWorkerForm, onEditWorker }) => {
           <select
             value={selectedDeptFilter}
             onChange={(e) => setSelectedDeptFilter(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-xl p-2.5 focus:outline-none focus:border-amber-500"
+            className="w-full bg-slate-50 border border-slate-200 text-slate-900 font-medium rounded-xl p-2.5 focus:outline-none focus:border-amber-500"
           >
             <option value="All">All Departments ({departments.length})</option>
             {departments.map((d) => (
@@ -81,7 +81,7 @@ export const WorkerManagement = ({ onOpenWorkerForm, onEditWorker }) => {
           <select
             value={selectedRoleFilter}
             onChange={(e) => setSelectedRoleFilter(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-xl p-2.5 focus:outline-none focus:border-amber-500"
+            className="w-full bg-slate-50 border border-slate-200 text-slate-900 font-medium rounded-xl p-2.5 focus:outline-none focus:border-amber-500"
           >
             <option value="All">All System Roles</option>
             <option value="Worker">Worker</option>
@@ -93,10 +93,10 @@ export const WorkerManagement = ({ onOpenWorkerForm, onEditWorker }) => {
       </div>
 
       {/* Workers Table */}
-      <div className="glass-panel rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
+      <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-300">
-            <thead className="bg-slate-950 border-b border-slate-800 text-[11px] font-bold uppercase text-amber-400 tracking-wider">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-slate-950 text-amber-400 border-b border-slate-800 text-[11px] font-bold uppercase tracking-wider">
               <tr>
                 <th className="p-4">Worker Info</th>
                 <th className="p-4">Department & Title</th>
@@ -106,59 +106,59 @@ export const WorkerManagement = ({ onOpenWorkerForm, onEditWorker }) => {
                 <th className="p-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/80">
+            <tbody className="divide-y divide-slate-100">
               {filteredWorkers.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="p-12 text-center text-slate-500">
+                  <td colSpan="6" className="p-12 text-center text-slate-500 font-medium">
                     No matching workers found in church registry.
                   </td>
                 </tr>
               ) : (
                 filteredWorkers.map((w) => (
-                  <tr key={w.id} className="hover:bg-slate-900/60 transition-colors">
+                  <tr key={w.id} className="hover:bg-amber-50/30 transition-colors">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <img
                           src={w.photo || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80"}
                           alt={w.name}
-                          className="w-10 h-10 rounded-xl object-cover ring-2 ring-amber-500/20"
+                          className="w-10 h-10 rounded-xl object-cover ring-2 ring-amber-400"
                         />
                         <div>
-                          <div className="font-bold text-slate-100 text-sm">{w.name}</div>
-                          <span className="font-mono text-[10px] text-amber-400">{w.id}</span>
+                          <div className="font-bold text-slate-900 text-sm">{w.name}</div>
+                          <span className="font-mono text-[11px] font-extrabold text-amber-700 block">{w.id}</span>
                         </div>
                       </div>
                     </td>
 
                     <td className="p-4">
-                      <div className="font-semibold text-slate-200">{w.department}</div>
-                      <div className="text-[11px] text-slate-400">{w.designation}</div>
+                      <div className="font-semibold text-slate-800">{w.department}</div>
+                      <div className="text-[11px] text-slate-500 font-medium">{w.designation}</div>
                     </td>
 
                     <td className="p-4">
-                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold ${
-                        w.role === 'Super Admin' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' :
-                        w.role === 'Church Admin' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
-                        w.role === 'Department Leader' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
-                        'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold shadow-xs ${
+                        w.role === 'Super Admin' ? 'bg-purple-100 text-purple-900 border border-purple-300' :
+                        w.role === 'Church Admin' ? 'bg-amber-100 text-amber-900 border border-amber-300' :
+                        w.role === 'Department Leader' ? 'bg-blue-100 text-blue-900 border border-blue-300' :
+                        'bg-slate-100 text-slate-800 border border-slate-300'
                       }`}>
                         {w.role}
                       </span>
                     </td>
 
                     <td className="p-4 space-y-0.5">
-                      <div className="text-slate-300 font-medium">{w.phone}</div>
-                      <div className="text-slate-500 text-[11px]">{w.email}</div>
+                      <div className="text-slate-800 font-semibold">{w.phone}</div>
+                      <div className="text-slate-600 text-[11px] font-medium">{w.email}</div>
                     </td>
 
                     <td className="p-4">
                       <button
                         onClick={() => handleToggleStatus(w)}
-                        className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1 ${
-                          w.status === 'Active' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 text-slate-400 border border-slate-700'
+                        className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold flex items-center gap-1 shadow-xs ${
+                          w.status === 'Active' ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' : 'bg-rose-100 text-rose-900 border border-rose-300'
                         }`}
                       >
-                        {w.status === 'Active' ? <CheckCircle2 className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
+                        {w.status === 'Active' ? <CheckCircle2 className="w-3 h-3 text-emerald-700" /> : <XCircle className="w-3 h-3 text-rose-700" />}
                         {w.status}
                       </button>
                     </td>
@@ -167,21 +167,21 @@ export const WorkerManagement = ({ onOpenWorkerForm, onEditWorker }) => {
                       <div className="flex items-center justify-end gap-1.5">
                         <button
                           onClick={() => setViewWorkerModal(w)}
-                          className="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-750"
+                          className="p-1.5 rounded-lg bg-slate-100 text-slate-700 hover:text-slate-900 hover:bg-slate-200"
                           title="View Details"
                         >
-                          <Eye className="w-4 h-4" />
+                          <Eye className="w-4 h-4 text-amber-700" />
                         </button>
                         <button
                           onClick={() => onEditWorker(w)}
-                          className="p-1.5 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-750"
+                          className="p-1.5 rounded-lg bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200"
                           title="Edit Worker"
                         >
                           <Edit className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleResetPassword(w)}
-                          className="p-1.5 rounded-lg bg-slate-800 text-blue-400 hover:bg-slate-750"
+                          className="p-1.5 rounded-lg bg-blue-50 text-blue-800 hover:bg-blue-100 border border-blue-200"
                           title="Reset Password"
                         >
                           <Key className="w-4 h-4" />
@@ -192,7 +192,7 @@ export const WorkerManagement = ({ onOpenWorkerForm, onEditWorker }) => {
                               deleteWorker(w.id);
                             }
                           }}
-                          className="p-1.5 rounded-lg bg-slate-800 text-rose-400 hover:bg-rose-950/40"
+                          className="p-1.5 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200"
                           title="Delete Worker"
                         >
                           <Trash2 className="w-4 h-4" />

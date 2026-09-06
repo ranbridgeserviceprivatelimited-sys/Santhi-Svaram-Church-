@@ -32,27 +32,27 @@ export const EventAnnouncementManager = () => {
     <div className="space-y-8">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel p-8 rounded-3xl border border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
         <div>
-          <h1 className="font-serif-spiritual text-3xl font-extrabold text-slate-100">
+          <h1 className="font-serif-spiritual text-3xl font-extrabold text-slate-900">
             Events & Notices <span className="gradient-text-gold">Manager</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Publish church conventions, youth programs, and urgent notices to the public portal.</p>
+          <p className="text-xs text-slate-600 mt-1 font-medium">Publish church conventions, youth programs, and urgent notices to the public portal.</p>
         </div>
 
         <div className="flex items-center gap-3">
           <button
             onClick={() => setEvtModalOpen(true)}
-            className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 px-4 py-3 rounded-2xl font-bold text-xs shadow-lg"
+            className="flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-3 rounded-2xl font-bold text-xs shadow-md transition-all btn-shimmer hover-lift"
           >
             <Plus className="w-4 h-4" />
             New Event
           </button>
           <button
             onClick={() => setAncModalOpen(true)}
-            className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-4 py-3 rounded-2xl font-bold text-xs"
+            className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 px-4 py-3 rounded-2xl font-bold text-xs transition-all hover-lift"
           >
-            <Bell className="w-4 h-4 text-amber-400" />
+            <Bell className="w-4 h-4 text-amber-600" />
             Post Notice
           </button>
         </div>
@@ -60,23 +60,23 @@ export const EventAnnouncementManager = () => {
 
       {/* Grid of Events */}
       <div className="space-y-6">
-        <h2 className="font-serif-spiritual text-2xl font-bold text-slate-100">Current Active Events ({events.length})</h2>
+        <h2 className="font-serif-spiritual text-2xl font-bold text-slate-900">Current Active Events ({events.length})</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.map((evt) => (
-            <div key={evt.id} className="glass-panel rounded-3xl overflow-hidden border border-slate-800 space-y-4 p-5 flex flex-col justify-between">
+            <div key={evt.id} className="bg-white rounded-3xl overflow-hidden border border-slate-200 glass-card-glow hover-lift space-y-4 p-5 flex flex-col justify-between shadow-sm group">
               <div className="space-y-3">
                 <div className="h-40 rounded-2xl overflow-hidden relative">
-                  <img src={evt.image} alt={evt.title} className="w-full h-full object-cover" />
-                  <span className="absolute top-2 left-2 bg-amber-500 text-slate-950 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">
+                  <img src={evt.image} alt={evt.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <span className="absolute top-2 left-2 bg-amber-500 text-slate-950 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-md">
                     {evt.category}
                   </span>
                 </div>
-                <h3 className="font-serif-spiritual text-lg font-bold text-slate-100">{evt.title}</h3>
-                <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">{evt.description}</p>
+                <h3 className="font-serif-spiritual text-lg font-bold text-slate-900 group-hover:text-amber-700 transition-colors">{evt.title}</h3>
+                <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">{evt.description}</p>
               </div>
 
-              <div className="pt-3 border-t border-slate-800 text-xs text-slate-400 space-y-1">
+              <div className="pt-3 border-t border-slate-100 text-xs text-slate-700 font-medium space-y-1">
                 <div>📅 {evt.date} • ⏱️ {evt.time}</div>
                 <div>📍 {evt.location}</div>
               </div>

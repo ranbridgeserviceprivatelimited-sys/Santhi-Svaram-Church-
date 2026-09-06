@@ -35,45 +35,45 @@ export const ContactSection = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* Contact Info & Timings */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xs space-y-6">
+        <div className="lg:col-span-5 space-y-6 animate-fadeInUp stagger-1">
+          <div className="bg-white p-8 rounded-3xl border border-slate-200 glass-card-glow hover-lift shadow-sm space-y-6">
             <h2 className="font-serif-spiritual text-2xl font-bold text-slate-900">Church Office Info</h2>
 
             <div className="space-y-4 text-xs text-slate-700">
-              <div className="flex items-start gap-3">
-                <div className="p-2.5 rounded-xl bg-amber-50 text-amber-600 border border-amber-200 shrink-0">
+              <div className="flex items-start gap-3 group">
+                <div className="p-2.5 rounded-xl bg-amber-50 text-amber-600 border border-amber-200 shrink-0 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900 text-sm">Main Campus Address</h4>
-                  <p className="text-slate-600 mt-0.5">{churchSettings.address}</p>
+                  <p className="text-slate-600 mt-0.5 font-medium">{churchSettings.address}</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
-                <div className="p-2.5 rounded-xl bg-amber-50 text-amber-600 border border-amber-200 shrink-0">
+              <div className="flex items-start gap-3 group">
+                <div className="p-2.5 rounded-xl bg-amber-50 text-amber-600 border border-amber-200 shrink-0 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900 text-sm">Pastoral Office Phone</h4>
-                  <p className="text-slate-600 mt-0.5">{churchSettings.phone}</p>
+                  <p className="text-slate-600 mt-0.5 font-medium">{churchSettings.phone}</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
-                <div className="p-2.5 rounded-xl bg-amber-50 text-amber-600 border border-amber-200 shrink-0">
+              <div className="flex items-start gap-3 group">
+                <div className="p-2.5 rounded-xl bg-amber-50 text-amber-600 border border-amber-200 shrink-0 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900 text-sm">General Email</h4>
-                  <p className="text-slate-600 mt-0.5">{churchSettings.email}</p>
+                  <p className="text-slate-600 mt-0.5 font-medium">{churchSettings.email}</p>
                 </div>
               </div>
             </div>
 
             <div className="pt-4 border-t border-slate-100 space-y-3">
               <h3 className="text-xs font-bold uppercase text-amber-700 tracking-wider">Office Hours</h3>
-              <div className="text-xs text-slate-600 space-y-1">
+              <div className="text-xs text-slate-600 space-y-1 font-medium">
                 <p>Monday - Friday: 08:30 AM - 05:00 PM</p>
                 <p>Saturday: 09:00 AM - 01:00 PM</p>
                 <p>Sunday: Active Service Hours</p>
@@ -83,17 +83,17 @@ export const ContactSection = () => {
         </div>
 
         {/* Contact & Prayer Request Form */}
-        <div className="lg:col-span-7 bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6">
+        <div className="lg:col-span-7 bg-white p-8 md:p-10 rounded-3xl border border-slate-200 glass-card-glow hover-lift shadow-sm space-y-6 animate-fadeInUp stagger-2">
           <div>
             <h2 className="font-serif-spiritual text-2xl font-bold text-slate-900">Send Us a Message or Prayer Request</h2>
-            <p className="text-xs text-slate-500 mt-1">Our pastoral care team responds to every inquiry within 24 hours.</p>
+            <p className="text-xs text-slate-500 mt-1 font-medium">Our pastoral care team responds to every inquiry within 24 hours.</p>
           </div>
 
           {submitted ? (
-            <div className="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl text-center space-y-3">
-              <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
+            <div className="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl text-center space-y-3 animate-scaleIn">
+              <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto animate-bounce" />
               <h3 className="text-lg font-bold text-slate-900">Thank You! Message Received</h3>
-              <p className="text-xs text-slate-700">Your message has been sent to our pastoral team. We are praying with you!</p>
+              <p className="text-xs text-slate-700 font-medium">Your message has been sent to our pastoral team. We are praying with you!</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 text-xs">

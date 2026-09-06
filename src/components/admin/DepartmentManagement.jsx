@@ -18,17 +18,17 @@ export const DepartmentManagement = () => {
     <div className="space-y-8">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel p-8 rounded-3xl border border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
         <div>
-          <h1 className="font-serif-spiritual text-3xl font-extrabold text-slate-100">
+          <h1 className="font-serif-spiritual text-3xl font-extrabold text-slate-900">
             Department <span className="gradient-text-gold">Management</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Organize church operations across specialized ministry departments.</p>
+          <p className="text-xs text-slate-600 mt-1 font-medium">Organize church operations across specialized ministry departments.</p>
         </div>
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-3 rounded-2xl font-bold text-xs shadow-lg shadow-amber-500/20 transition-all hover:scale-105"
+          className="flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 px-5 py-3 rounded-2xl font-bold text-xs shadow-md transition-all btn-shimmer hover-lift"
         >
           <Plus className="w-4 h-4" />
           Add Department
@@ -37,35 +37,35 @@ export const DepartmentManagement = () => {
 
       {/* Departments Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {departments.map((dept) => {
+        {departments.map((dept, idx) => {
           const deptWorkers = workers.filter(w => w.department === dept.name);
 
           return (
-            <div key={dept.id} className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4 flex flex-col justify-between">
+            <div key={dept.id} className={`bg-white p-6 rounded-3xl border border-slate-200 glass-card-glow hover-lift space-y-4 flex flex-col justify-between shadow-sm animate-fadeInUp stagger-${(idx % 4) + 1}`}>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  <div className="p-3 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200">
                     <Building2 className="w-6 h-6" />
                   </div>
-                  <span className="text-xs font-mono text-amber-400 font-bold">{dept.id}</span>
+                  <span className="text-xs font-mono text-amber-700 font-extrabold">{dept.id}</span>
                 </div>
 
-                <h3 className="font-serif-spiritual text-xl font-bold text-slate-100">{dept.name}</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">{dept.description}</p>
+                <h3 className="font-serif-spiritual text-xl font-bold text-slate-900">{dept.name}</h3>
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">{dept.description}</p>
               </div>
 
-              <div className="pt-4 border-t border-slate-800 space-y-3">
+              <div className="pt-4 border-t border-slate-100 space-y-3">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-slate-500">Department Leader:</span>
-                  <span className="text-amber-300 font-bold">{dept.leaderName}</span>
+                  <span className="text-slate-500 font-medium">Department Leader:</span>
+                  <span className="text-amber-800 font-bold">{dept.leaderName}</span>
                 </div>
 
-                <div className="bg-slate-950 p-3 rounded-2xl border border-slate-800 flex items-center justify-between text-xs">
-                  <span className="text-slate-400 flex items-center gap-1.5">
-                    <Users className="w-4 h-4 text-emerald-400" />
+                <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 flex items-center justify-between text-xs">
+                  <span className="text-slate-700 font-semibold flex items-center gap-1.5">
+                    <Users className="w-4 h-4 text-emerald-600" />
                     Total Active Workers:
                   </span>
-                  <span className="text-emerald-400 font-extrabold text-sm">{deptWorkers.length || dept.workerCount}</span>
+                  <span className="text-emerald-700 font-extrabold text-sm">{deptWorkers.length || dept.workerCount}</span>
                 </div>
               </div>
             </div>

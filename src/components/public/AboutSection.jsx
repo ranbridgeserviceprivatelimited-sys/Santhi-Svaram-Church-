@@ -32,33 +32,33 @@ export const AboutSection = () => {
       {/* Vision & Mission Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-          <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-bold">
+        <div className="bg-white p-8 rounded-3xl border border-slate-200 glass-card-glow hover-lift transition-all space-y-4 animate-fadeInUp stagger-1 group">
+          <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-bold group-hover:scale-110 group-hover:rotate-6 transition-transform">
             <Compass className="w-6 h-6" />
           </div>
-          <h2 className="font-serif-spiritual text-2xl font-bold text-slate-900">Our Vision</h2>
+          <h2 className="font-serif-spiritual text-2xl font-bold text-slate-900 group-hover:text-amber-600 transition-colors">Our Vision</h2>
           <p className="text-slate-600 text-sm leading-relaxed">{churchSettings.vision}</p>
         </div>
 
-        <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center font-bold">
+        <div className="bg-white p-8 rounded-3xl border border-slate-200 glass-card-glow hover-lift transition-all space-y-4 animate-fadeInUp stagger-2 group">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center font-bold group-hover:scale-110 group-hover:rotate-6 transition-transform">
             <Target className="w-6 h-6" />
           </div>
-          <h2 className="font-serif-spiritual text-2xl font-bold text-slate-900">Our Mission</h2>
+          <h2 className="font-serif-spiritual text-2xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Our Mission</h2>
           <p className="text-slate-600 text-sm leading-relaxed">{churchSettings.mission}</p>
         </div>
 
       </div>
 
       {/* Church History */}
-      <div className="bg-white p-8 md:p-12 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+      <div className="bg-white p-8 md:p-12 rounded-3xl border border-slate-200 shadow-sm hover-lift space-y-6 animate-fadeInUp stagger-3">
         <div className="flex items-center gap-3">
           <div className="p-3 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200">
             <BookOpen className="w-6 h-6" />
           </div>
           <div>
             <h2 className="font-serif-spiritual text-2xl font-bold text-slate-900">Church History & Heritage</h2>
-            <p className="text-xs text-amber-700 font-semibold">Over 28 years of God's faithfulness</p>
+            <p className="text-xs text-amber-700 font-semibold">Over 40 years of God's faithfulness</p>
           </div>
         </div>
 
@@ -67,20 +67,20 @@ export const AboutSection = () => {
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-slate-100 text-center">
-          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-            <div className="font-serif-spiritual text-3xl font-extrabold text-amber-600">1998</div>
+          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 hover-lift group">
+            <div className="font-serif-spiritual text-3xl font-extrabold text-amber-600 group-hover:scale-110 transition-transform">1986</div>
             <div className="text-xs text-slate-500 font-medium mt-1">Year Founded</div>
           </div>
-          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-            <div className="font-serif-spiritual text-3xl font-extrabold text-amber-600">2,000+</div>
+          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 hover-lift group">
+            <div className="font-serif-spiritual text-3xl font-extrabold text-amber-600 group-hover:scale-110 transition-transform">2,000+</div>
             <div className="text-xs text-slate-500 font-medium mt-1">Active Congregation</div>
           </div>
-          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-            <div className="font-serif-spiritual text-3xl font-extrabold text-amber-600">125+</div>
-            <div className="text-xs text-slate-500 font-medium mt-1">Dedicated Workers</div>
+          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 hover-lift group">
+            <div className="font-serif-spiritual text-3xl font-extrabold text-amber-600 group-hover:scale-110 transition-transform">128+</div>
+            <div className="text-xs text-slate-500 font-medium mt-1">Dedicated Volunteers</div>
           </div>
-          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-            <div className="font-serif-spiritual text-3xl font-extrabold text-amber-600">8</div>
+          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 hover-lift group">
+            <div className="font-serif-spiritual text-3xl font-extrabold text-amber-600 group-hover:scale-110 transition-transform">8</div>
             <div className="text-xs text-slate-500 font-medium mt-1">Ministry Departments</div>
           </div>
         </div>

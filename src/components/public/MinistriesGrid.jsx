@@ -46,17 +46,17 @@ export const MinistriesGrid = ({ setActiveTab }) => {
 
       {/* Grid of 8 Ministries */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {departments.map((dept) => {
+        {departments.map((dept, idx) => {
           const IconComp = getIcon(dept.icon);
 
           return (
             <div
               key={dept.id}
               onClick={() => setSelectedDept(dept)}
-              className="bg-white p-6 rounded-3xl border border-slate-200 space-y-4 flex flex-col justify-between shadow-xs hover:shadow-md transition-all cursor-pointer group"
+              className={`bg-white p-6 rounded-3xl border border-slate-200 space-y-4 flex flex-col justify-between shadow-xs glass-card-glow hover-lift-lg transition-all cursor-pointer group animate-fadeInUp stagger-${(idx % 6) + 1}`}
             >
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-bold group-hover:bg-amber-500 group-hover:text-slate-950 transition-all">
+                <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-bold group-hover:bg-amber-500 group-hover:text-slate-950 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-sm">
                   <IconComp className="w-6 h-6" />
                 </div>
 

@@ -16,12 +16,12 @@ export const AuditLogs = () => {
     <div className="space-y-8">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel p-8 rounded-3xl border border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
         <div>
-          <h1 className="font-serif-spiritual text-3xl font-extrabold text-slate-100">
+          <h1 className="font-serif-spiritual text-3xl font-extrabold text-slate-900">
             System Security <span className="gradient-text-gold">& Audit Trail</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Immutable log of system activities, leave decisions, worker creations, and QR check-in timestamps.</p>
+          <p className="text-xs text-slate-600 mt-1 font-medium">Immutable log of system activities, leave decisions, worker creations, and QR check-in timestamps.</p>
         </div>
 
         <div className="relative w-full sm:w-72">
@@ -31,16 +31,16 @@ export const AuditLogs = () => {
             placeholder="Search audit trail..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-amber-500"
+            className="w-full bg-slate-50 border border-slate-200 text-slate-900 font-medium text-xs rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-amber-500"
           />
         </div>
       </div>
 
       {/* Audit Logs Table */}
-      <div className="glass-panel rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
+      <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-300">
-            <thead className="bg-slate-950 border-b border-slate-800 text-[11px] font-bold uppercase text-amber-400 tracking-wider">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-slate-950 text-amber-400 border-b border-slate-800 text-[11px] font-bold uppercase tracking-wider">
               <tr>
                 <th className="p-4">Log ID & Timestamp</th>
                 <th className="p-4">User / Persona</th>
@@ -48,32 +48,32 @@ export const AuditLogs = () => {
                 <th className="p-4">Action Details</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/80">
+            <tbody className="divide-y divide-slate-100">
               {filteredLogs.length === 0 ? (
                 <tr>
-                  <td colSpan="4" className="p-12 text-center text-slate-500">
+                  <td colSpan="4" className="p-12 text-center text-slate-500 font-medium">
                     No matching audit logs recorded.
                   </td>
                 </tr>
               ) : (
                 filteredLogs.map((log) => (
-                  <tr key={log.id} className="hover:bg-slate-900/60 transition-colors">
+                  <tr key={log.id} className="hover:bg-amber-50/30 transition-colors">
                     <td className="p-4">
-                      <div className="font-mono text-amber-400 font-bold">{log.id}</div>
-                      <span className="text-[10px] text-slate-500 font-mono">{log.timestamp}</span>
+                      <div className="font-mono text-amber-700 font-extrabold">{log.id}</div>
+                      <span className="text-[11px] text-slate-500 font-mono font-medium">{log.timestamp}</span>
                     </td>
 
-                    <td className="p-4 font-bold text-slate-200">
+                    <td className="p-4 font-bold text-slate-900">
                       {log.user}
                     </td>
 
                     <td className="p-4">
-                      <span className="px-2.5 py-0.5 rounded-full bg-slate-950 text-emerald-400 border border-slate-800 font-bold text-[11px]">
+                      <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold text-[11px] shadow-xs">
                         {log.action}
                       </span>
                     </td>
 
-                    <td className="p-4 text-slate-300 font-medium leading-relaxed">
+                    <td className="p-4 text-slate-800 font-medium leading-relaxed">
                       {log.details}
                     </td>
                   </tr>

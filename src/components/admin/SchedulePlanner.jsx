@@ -35,17 +35,17 @@ export const SchedulePlanner = () => {
     <div className="space-y-8">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel p-8 rounded-3xl border border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
         <div>
-          <h1 className="font-serif-spiritual text-3xl font-extrabold text-slate-100">
+          <h1 className="font-serif-spiritual text-3xl font-extrabold text-slate-900">
             Duty Schedule <span className="gradient-text-gold">Planner</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Assign workers to specific ministry duties for Sunday services & mid-week meetings.</p>
+          <p className="text-xs text-slate-600 mt-1 font-medium">Assign workers to specific ministry duties for Sunday services & mid-week meetings.</p>
         </div>
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-3 rounded-2xl font-bold text-xs shadow-lg shadow-amber-500/20 transition-all hover:scale-105"
+          className="flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 px-5 py-3 rounded-2xl font-bold text-xs shadow-md transition-all btn-shimmer hover-lift"
         >
           <Plus className="w-4 h-4" />
           Assign Duty Schedule
@@ -53,10 +53,10 @@ export const SchedulePlanner = () => {
       </div>
 
       {/* Schedules Table */}
-      <div className="glass-panel rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
+      <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-300">
-            <thead className="bg-slate-950 border-b border-slate-800 text-[11px] font-bold uppercase text-amber-400 tracking-wider">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-slate-950 text-amber-400 border-b border-slate-800 text-[11px] font-bold uppercase tracking-wider">
               <tr>
                 <th className="p-4">Date & Service Day</th>
                 <th className="p-4">Department</th>
@@ -67,34 +67,34 @@ export const SchedulePlanner = () => {
                 <th className="p-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/80">
+            <tbody className="divide-y divide-slate-100">
               {schedules.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="p-12 text-center text-slate-500">
+                  <td colSpan="7" className="p-12 text-center text-slate-500 font-medium">
                     No active duty assignments logged.
                   </td>
                 </tr>
               ) : (
                 schedules.map((sch) => (
-                  <tr key={sch.id} className="hover:bg-slate-900/60 transition-colors">
-                    <td className="p-4 font-semibold text-slate-100">
+                  <tr key={sch.id} className="hover:bg-amber-50/30 transition-colors">
+                    <td className="p-4 font-bold text-slate-900">
                       <div>{sch.day}, {sch.date}</div>
                     </td>
 
-                    <td className="p-4 font-bold text-amber-400">{sch.department}</td>
+                    <td className="p-4 font-extrabold text-amber-700">{sch.department}</td>
 
                     <td className="p-4">
-                      <div className="font-bold text-slate-200">{sch.workerName}</div>
-                      <span className="font-mono text-[10px] text-slate-500">{sch.workerId}</span>
+                      <div className="font-bold text-slate-900 text-sm">{sch.workerName}</div>
+                      <span className="font-mono text-[11px] text-slate-500 font-semibold">{sch.workerId}</span>
                     </td>
 
-                    <td className="p-4 font-semibold text-slate-200">{sch.duty}</td>
+                    <td className="p-4 font-semibold text-slate-800">{sch.duty}</td>
 
-                    <td className="p-4 text-slate-400 font-mono">{sch.time}</td>
+                    <td className="p-4 text-slate-600 font-mono font-medium">{sch.time}</td>
 
                     <td className="p-4">
-                      <span className={`px-3 py-1 rounded-full text-[10px] font-extrabold ${
-                        sch.status === 'Completed' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                      <span className={`px-3 py-1 rounded-full text-[10px] font-extrabold shadow-xs ${
+                        sch.status === 'Completed' ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' : 'bg-amber-100 text-amber-900 border border-amber-300'
                       }`}>
                         {sch.status}
                       </span>
@@ -103,7 +103,7 @@ export const SchedulePlanner = () => {
                     <td className="p-4 text-right">
                       <button
                         onClick={() => deleteSchedule(sch.id)}
-                        className="p-2 rounded-lg bg-slate-800 text-rose-400 hover:bg-rose-950/40"
+                        className="p-2 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200"
                         title="Remove Assignment"
                       >
                         <Trash2 className="w-4 h-4" />

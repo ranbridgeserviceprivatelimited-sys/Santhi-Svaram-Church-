@@ -1,9 +1,9 @@
 import React from 'react';
 import { useChurch } from '../../context/ChurchContext';
-import { X, Bell, Calendar, CheckCircle2, Info } from 'lucide-react';
+import { X, Bell, Calendar, CheckCircle2, Info, Trash2 } from 'lucide-react';
 
 export const NotificationDrawer = ({ isOpen, onClose }) => {
-  const { notifications, currentUser, currentRole } = useChurch();
+  const { notifications, setNotifications, clearAllNotifications, currentUser, currentRole } = useChurch();
 
   if (!isOpen) return null;
 
@@ -12,6 +12,14 @@ export const NotificationDrawer = ({ isOpen, onClose }) => {
     n.userId === (currentUser ? currentUser.id : '') || 
     (n.userId === 'ADMIN' && ['Church Admin', 'Super Admin'].includes(currentRole))
   );
+
+  const handleClearAll = () => {
+    if (clearAllNotifications) {
+      clearAllNotifications();
+    } else if (setNotifications) {
+      setNotifications([]);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden bg-slate-950/60 backdrop-blur-xs flex justify-end animate-fadeIn">
@@ -74,12 +82,14 @@ export const NotificationDrawer = ({ isOpen, onClose }) => {
         </div>
 
         {/* Drawer Footer */}
-        <div className="p-4 border-t border-slate-200 bg-slate-50 text-center">
+        <div className="p-4 border-t border-slate-200 bg-slate-50">
           <button
-            onClick={onClose}
-            className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-md btn-shimmer"
+            onClick={handleClearAll}
+            disabled={userNotifs.length === 0}
+            className="w-full py-2.5 bg-amber-500 hover:bg-amber-400 disabled:bg-slate-200 disabled:text-slate-400 text-slate-950 rounded-xl text-xs font-extrabold transition-all shadow-md flex items-center justify-center gap-2 btn-shimmer"
           >
-            Close Notifications
+            <Trash2 className="w-4 h-4" />
+            <span>Clear All</span>
           </button>
         </div>
       </div>

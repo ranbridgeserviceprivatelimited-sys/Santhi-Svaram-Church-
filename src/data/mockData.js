@@ -5,11 +5,11 @@ export const initialChurchSettings = {
   pastorName: "Dr. Thomas & Sarah Anderson",
   pastorTitle: "Senior Lead Pastors",
   pastorMessage: "Welcome home! Whether you're searching for spiritual strength, a supportive family, or a place to serve God using your gifts, Grace Community Church welcomes you with open arms. Join us as we grow together in faith, hope, and love.",
-  pastorPhoto: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80",
+  pastorPhoto: "/paster.jpeg",
   churchPhoto: "https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=1200&q=80",
-  address: "777 Grace Avenue, Covenant City, CC 90210",
-  phone: "+1 (555) 777-4321",
-  email: "contact@gracecommunitychurch.org",
+  address: "Bipass road purushottama patnam chilakaluripet 522616",
+  phone: "+91 94944 96996 / +91 79979 98008",
+  email: "eventsranbidge@gmail.com",
   googleMapsEmbed: "https://maps.google.com/maps?q=grace%20community%20church&t=&z=13&ie=UTF8&iwloc=&output=embed",
   socials: {
     facebook: "https://facebook.com",
@@ -18,10 +18,8 @@ export const initialChurchSettings = {
     twitter: "https://twitter.com"
   },
   serviceTimings: [
-    { day: "Sunday", name: "Early Morning Worship Service", time: "07:30 AM - 09:30 AM", location: "Main Sanctuary" },
-    { day: "Sunday", name: "Celebration & Word Service", time: "10:00 AM - 12:30 PM", location: "Main Sanctuary & Online" },
-    { day: "Wednesday", name: "Mid-Week Bible Study & Prayer", time: "06:30 PM - 08:00 PM", location: "Fellowship Hall" },
-    { day: "Friday", name: "Night of Breakthrough Intercession", time: "09:00 PM - 11:30 PM", location: "Prayer Chapel" }
+    { day: "Sunday", name: "Sunday Worship Service", time: "10:00 AM - 01:00 PM", location: "Main Sanctuary & Online" },
+    { day: "Friday", name: "Friday Intercession & Worship", time: "07:00 PM - 10:00 PM", location: "Main Sanctuary" }
   ],
   vision: "To cultivate a Christ-centered digital & physical community that preserves 40 years of sacred heritage, transforms families through intentional care, and serves the broader society through active social relief.",
   mission: "Equipping every member to discover their purpose, maintaining organized family stewardship, identifying and supporting those in need, and expanding social service across regions.",

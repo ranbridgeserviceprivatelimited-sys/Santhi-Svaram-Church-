@@ -3,6 +3,7 @@ import { useChurch } from '../../context/ChurchContext';
 import {
   Bell,
   UserCheck,
+  User,
   LayoutDashboard,
   Calendar,
   Users,
@@ -61,11 +62,11 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
   const isAdmin = ['Church Admin', 'Super Admin', 'Department Leader'].includes(currentRole);
 
   return (
-    <nav className="bg-white sticky top-0 z-40 border-b border-slate-200 shadow-sm transition-all w-full">
+    <nav className="bg-white sticky top-0 z-40 border-b border-slate-200 shadow-sm transition-all w-full relative">
 
       {/* TOP HEADER ROW: Logo, Campus Selector & Quick Action Buttons */}
       <div className="border-b border-slate-100 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-16 gap-4">
 
             {/* Left: Logo & Church Name */}
@@ -110,13 +111,7 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
 
             {/* Right: Quick Action Controls */}
             <div className="hidden md:flex items-center gap-2.5 shrink-0">
-              <button
-                onClick={onOpenGivingModal}
-                className="btn-shimmer btn-interactive-spring flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-xl font-bold text-xs shadow-xs transition-all whitespace-nowrap"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-emerald-200 animate-spark" />
-                <span>Online Giving</span>
-              </button>
+
 
               <button
                 onClick={onOpenPrayerModal}
@@ -196,18 +191,93 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
               ) : (
                 <button
                   onClick={() => setActiveTab('login')}
-                  className="btn-shimmer btn-interactive-spring bg-amber-500 hover:bg-amber-400 text-slate-950 px-4.5 py-1.5 rounded-xl text-xs font-extrabold transition-all shadow-sm shrink-0"
+                  className="btn-interactive-spring p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-all shrink-0 flex items-center gap-1.5"
+                  title="Profile / Login"
+                  aria-label="Profile / Login"
                 >
-                  Login
+                  <User className="w-4 h-4 text-slate-700" />
                 </button>
               )}
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Header Controls & Menu Button */}
             <div className="flex md:hidden items-center gap-2">
+              {/* Profile Avatar / Login Icon button on the left of notification icon */}
+              {currentUser ? (
+                <div className="relative shrink-0">
+                  <button
+                    onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                    className="flex items-center gap-1 bg-slate-100 hover:bg-slate-200 p-1 rounded-xl border border-slate-200 transition-all shrink-0"
+                    title="User Profile"
+                  >
+                    <img
+                      src={currentUser.photo}
+                      alt={currentUser.name}
+                      className="w-7 h-7 rounded-lg object-cover ring-2 ring-amber-400 shrink-0"
+                    />
+                    <ChevronDown className="w-3 h-3 text-slate-500 mr-0.5" />
+                  </button>
+
+                  {userDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-2xl shadow-xl p-2 z-50 animate-fadeInUp">
+                      <div className="p-3 border-b border-slate-100">
+                        <p className="text-xs font-bold text-slate-900">{currentUser.name}</p>
+                        <p className="text-[11px] text-slate-500">{currentUser.email}</p>
+                        <span className="inline-block mt-1.5 px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 text-[10px] font-semibold border border-amber-200">
+                          {currentUser.department}
+                        </span>
+                      </div>
+
+                      <div className="py-1">
+                        <button
+                          onClick={() => { setActiveTab('admin-dashboard'); setUserDropdownOpen(false); }}
+                          className="w-full text-left px-3 py-2 text-xs font-bold text-amber-700 hover:bg-amber-50 rounded-xl flex items-center gap-2 transition-all hover:pl-4"
+                        >
+                          <LayoutDashboard className="w-4 h-4 text-amber-600" /> Admin Console
+                        </button>
+                      </div>
+
+                      <div className="pt-1 border-t border-slate-100">
+                        <button
+                          onClick={() => { switchRole('Visitor'); setUserDropdownOpen(false); }}
+                          className="w-full text-left px-3 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 rounded-xl flex items-center gap-2 transition-all hover:pl-4"
+                        >
+                          <LogOut className="w-4 h-4 text-rose-600" /> Switch to Visitor Mode
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button
+                  onClick={() => setActiveTab('login')}
+                  className="btn-interactive-spring p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-all shrink-0"
+                  title="Profile / Login"
+                  aria-label="Profile / Login"
+                >
+                  <User className="w-4 h-4 text-slate-700" />
+                </button>
+              )}
+
+              {/* Notification Bell */}
+              <button
+                onClick={onOpenNotifications}
+                className="btn-interactive-spring relative p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-all shrink-0"
+                title="Notifications"
+              >
+                <Bell className="w-4 h-4 text-slate-700" />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-amber-500 text-white text-[10px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center shadow-md border-2 border-white animate-pulse">
+                    {unreadCount}
+                  </span>
+                )}
+              </button>
+
+              {/* Hamburger Menu Toggle */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition-transform active:scale-90"
+                aria-label="Toggle navigation menu"
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -218,7 +288,7 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
 
       {/* BOTTOM ROW: Spacious Centered Navigation Menu */}
       <div className="hidden md:block bg-slate-50/80 border-t border-slate-100 py-2">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-8 lg:px-12">
           <div className="flex items-center justify-center gap-1.5 flex-wrap">
             {publicNavItems.map((item) => (
               <button
@@ -290,47 +360,118 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
 
 
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile Drawer Navigation (Attached Dropdown Floating Overlay) */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3">
-          <div className="text-xs font-bold uppercase text-slate-400 tracking-wider">Public Navigation</div>
-          <div className="grid grid-cols-2 gap-2">
-            {publicNavItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => { setActiveTab(item.id); setMobileMenuOpen(false); }}
-                className={`px-3 py-2 rounded-xl text-xs font-medium text-left ${
-                  activeTab === item.id ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-100 text-slate-700'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
+        <>
+          {/* Dimmed Backdrop overlay below header */}
+          <div
+            className="md:hidden fixed inset-0 top-[65px] bg-slate-900/30 backdrop-blur-xs z-40 animate-fadeIn"
+            onClick={() => setMobileMenuOpen(false)}
+          />
 
-          {isAdmin && (
-            <>
-              <div className="text-xs font-bold uppercase text-amber-600 tracking-wider pt-2">Admin Digitalization Modules</div>
-              <div className="grid grid-cols-2 gap-2">
-                {adminNavItems.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => { setActiveTab(item.id); setMobileMenuOpen(false); }}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-left ${
-                        activeTab === item.id ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-amber-50 text-amber-800 border border-amber-200'
-                      }`}
-                    >
-                      <Icon className="w-3.5 h-3.5" />
-                      {item.label}
-                    </button>
-                  );
-                })}
+          {/* Top-attached Dropdown Panel Container */}
+          <div className="md:hidden absolute top-full left-0 right-0 w-full bg-white/98 backdrop-blur-2xl border-b border-slate-200 shadow-2xl z-50 p-4 space-y-4 max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain animate-fadeIn">
+            {/* Quick Action Buttons for Mobile */}
+            <div className="grid grid-cols-2 gap-2 pt-0.5">
+              <button
+                onClick={() => { onOpenPrayerModal(); setMobileMenuOpen(false); }}
+                className="flex items-center justify-center gap-1.5 bg-amber-50/90 hover:bg-amber-100 text-amber-900 border border-amber-300 px-3 py-2 rounded-xl text-xs font-extrabold shadow-2xs transition-colors"
+              >
+                <HeartHandshake className="w-3.5 h-3.5 text-amber-600" />
+                <span>Prayer Request</span>
+              </button>
+
+              {isStaffOrAdmin ? (
+                <button
+                  onClick={() => { onOpenQRScanner(); setMobileMenuOpen(false); }}
+                  className="flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 px-3 py-2 rounded-xl text-xs font-bold shadow-2xs transition-colors"
+                >
+                  <QrCode className="w-3.5 h-3.5" />
+                  <span>Smart Gate Scan</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => { setActiveTab(currentUser ? 'admin-dashboard' : 'login'); setMobileMenuOpen(false); }}
+                  className="flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 px-3 py-2 rounded-xl text-xs font-bold shadow-2xs transition-colors"
+                >
+                  {currentUser ? <LayoutDashboard className="w-3.5 h-3.5 text-amber-600" /> : <LogOut className="w-3.5 h-3.5 text-slate-600" />}
+                  <span>{currentUser ? 'Dashboard' : 'Portal Login'}</span>
+                </button>
+              )}
+            </div>
+
+            {/* Mobile User Profile info */}
+            {currentUser && (
+              <div className="bg-slate-50 p-2.5 rounded-2xl border border-slate-200/80 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <img
+                    src={currentUser.photo}
+                    alt={currentUser.name}
+                    className="w-8 h-8 rounded-xl object-cover ring-2 ring-amber-400 shrink-0"
+                  />
+                  <div className="truncate">
+                    <p className="text-xs font-bold text-slate-900 truncate">{currentUser.name}</p>
+                    <p className="text-[10px] text-amber-700 font-semibold truncate">{currentRole} • {currentUser.department}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => { switchRole('Visitor'); setMobileMenuOpen(false); }}
+                  className="shrink-0 px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-bold transition-all flex items-center gap-1"
+                  title="Switch to Visitor Mode"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>Logout</span>
+                </button>
               </div>
-            </>
-          )}
-        </div>
+            )}
+
+            {/* Public Navigation */}
+            <div>
+              <div className="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider mb-2">Public Navigation</div>
+              <div className="grid grid-cols-2 gap-2">
+                {publicNavItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => { setActiveTab(item.id); setMobileMenuOpen(false); }}
+                    className={`px-3 py-2.5 rounded-xl text-xs font-bold text-left transition-all ${
+                      activeTab === item.id 
+                        ? 'bg-amber-500 text-slate-950 shadow-sm font-extrabold' 
+                        : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200/80'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Admin Digitalization Modules */}
+            {isAdmin && (
+              <div>
+                <div className="text-[10px] font-extrabold uppercase text-amber-600 tracking-wider mb-2 pt-1">Admin Digitalization Modules</div>
+                <div className="grid grid-cols-2 gap-2">
+                  {adminNavItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => { setActiveTab(item.id); setMobileMenuOpen(false); }}
+                        className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold text-left transition-all ${
+                          activeTab === item.id 
+                            ? 'bg-amber-600 text-white font-bold shadow-md' 
+                            : 'bg-amber-50/80 text-amber-900 border border-amber-200/80 hover:bg-amber-100'
+                        }`}
+                      >
+                        <Icon className="w-3.5 h-3.5 shrink-0" />
+                        <span className="truncate">{item.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        </>
       )}
     </nav>
   );

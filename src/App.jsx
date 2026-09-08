@@ -10,7 +10,7 @@ import { SmartAttendanceScanner } from './components/common/SmartAttendanceScann
 import { DocumentVault } from './components/common/DocumentVault';
 import { PrayerRequestModal } from './components/common/PrayerRequestModal';
 import { DigitalGivingModal } from './components/common/DigitalGivingModal';
-import { LiveAudioPlayer } from './components/common/LiveAudioPlayer';
+
 
 // Public Components
 import { HomeHero } from './components/public/HomeHero';
@@ -100,7 +100,7 @@ const MainLayout = () => {
       />
 
       {/* Main Screen Content View */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative z-10">
+      <main className="flex-1 w-full px-3.5 sm:px-8 lg:px-12 pt-4 sm:pt-8 pb-12 sm:pb-16 relative z-10">
 
         {/* PUBLIC SITE PAGES */}
         {activeTab === 'home' && <HomeHero setActiveTab={setActiveTab} />}
@@ -203,8 +203,7 @@ const MainLayout = () => {
         onClose={() => setIsGivingModalOpen(false)}
       />
 
-      {/* Floating Live Sermon Audio Player */}
-      <LiveAudioPlayer setActiveTab={setActiveTab} />
+
 
       {/* Floating Interactive Quick Bar & AI Assistant */}
       <InteractiveQuickBar

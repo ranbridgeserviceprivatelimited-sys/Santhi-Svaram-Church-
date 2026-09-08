@@ -49,7 +49,20 @@ export const ChurchProvider = ({ children }) => {
   // State slices loaded from localStorage or fallback to initial Mock Data
   const [churchSettings, setChurchSettings] = useState(() => {
     const s = localStorage.getItem('gcc_settings');
-    return s ? JSON.parse(s) : initialChurchSettings;
+    if (s) {
+      try {
+        const parsed = JSON.parse(s);
+        return { 
+          ...parsed, 
+          pastorPhoto: initialChurchSettings.pastorPhoto,
+          address: initialChurchSettings.address,
+          phone: initialChurchSettings.phone,
+          email: initialChurchSettings.email,
+          serviceTimings: initialChurchSettings.serviceTimings 
+        };
+      } catch (e) { /* ignore */ }
+    }
+    return initialChurchSettings;
   });
 
   const [families, setFamilies] = useState(() => {
@@ -427,6 +440,11 @@ export const ChurchProvider = ({ children }) => {
     alert('System data reset to initial default state!');
   };
 
+  const clearAllNotifications = () => {
+    setNotifications([]);
+    logAuditAction('Notifications Cleared', 'Cleared all notification items');
+  };
+
   return (
     <ChurchContext.Provider
       value={{
@@ -456,6 +474,8 @@ export const ChurchProvider = ({ children }) => {
         events,
         announcements,
         notifications,
+        setNotifications,
+        clearAllNotifications,
         auditLogs,
         addFamily,
         addMember,

@@ -8,10 +8,8 @@ export const RoleSwitcher = () => {
 
   const roles = [
     { role: 'Visitor', icon: Eye, color: 'bg-slate-700 text-slate-200', desc: 'Public website view only' },
-    { role: 'Worker', icon: UserCheck, color: 'bg-emerald-600 text-white', desc: 'My Profile, QR Check-in, Leave & Schedule' },
-    { role: 'Department Leader', icon: Users, color: 'bg-amber-600 text-white', desc: 'Department oversight, Duty planner & Leave reviews' },
     { role: 'Church Admin', icon: User, color: 'bg-blue-600 text-white', desc: 'Full worker, leave, attendance & report controls' },
-    { role: 'Super Admin', icon: Shield, color: 'bg-purple-600 text-white', desc: 'Unrestricted system control, settings & audit logs' },
+    { role: 'Super Admin', icon: Shield, color: 'bg-purple-600 text-white', desc: 'Developer Options (PIN: 8247) & Unrestricted System Controls' },
   ];
 
   return (

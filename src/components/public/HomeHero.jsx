@@ -20,97 +20,89 @@ export const HomeHero = ({ setActiveTab }) => {
     <div className="space-y-12 w-full animate-fadeIn">
 
       {/* Animated Cover Banner Section */}
-      <section className="relative rounded-3xl overflow-hidden border border-amber-500/20 shadow-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white min-h-[540px] flex items-center group">
+      <section className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-amber-500/20 shadow-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white min-h-[420px] sm:min-h-[540px] flex items-center group">
 
         {/* Dynamic Animated Background Image & Warm Radiant Overlay Scrim */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <img
             src={churchSettings.churchPhoto}
             alt="Church Sanctuary"
-            className="w-full h-full object-cover opacity-60 scale-105 group-hover:scale-110 transition-transform duration-1000"
+            className="w-full h-full object-cover object-center opacity-50 scale-100 group-hover:scale-105 transition-transform duration-1000"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/70 to-slate-950/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/50" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/50 to-slate-950/85" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 to-slate-950/70" />
           
           {/* Animated Light Orbs */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/25 rounded-full blur-3xl pointer-events-none animate-pulse" />
-          <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none animate-orb-2" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
+          <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none animate-orb-2" />
         </div>
 
         {/* Hero Content Box */}
-        <div className="relative z-10 w-full px-8 py-14 lg:p-16 space-y-6">
+        <div className="relative z-10 w-full px-5 py-6 sm:px-8 sm:py-12 lg:p-16 flex flex-col justify-end min-h-[420px] sm:min-h-[540px] space-y-4 sm:space-y-6">
           
-          {/* Mode Pill Badge */}
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-md animate-float">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              Welcome to {churchSettings.name}
-            </div>
+          <div className="space-y-3 sm:space-y-5 mt-auto mb-4 sm:mb-8">
+            <h1 className="font-serif-spiritual text-2xl sm:text-4xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight max-w-4xl drop-shadow-md">
+              Discover Your <span className="gradient-text-gold drop-shadow-md">Divine Purpose</span> & Community
+            </h1>
 
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300 text-xs font-semibold backdrop-blur-md">
-              <Eye className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-              <span>Current Mode: <strong className="text-emerald-400">{currentRole}</strong></span>
-            </div>
+            <p className="text-slate-200 text-xs sm:text-base lg:text-lg max-w-3xl leading-relaxed font-classic-body font-medium drop-shadow-xs">
+              {churchSettings.tagline}. Experience spiritual growth, fellowship, and 40 years of kingdom ministry.
+            </p>
           </div>
 
-          <h1 className="font-serif-spiritual text-4xl sm:text-6xl font-extrabold text-white leading-tight tracking-tight max-w-4xl drop-shadow-md">
-            Discover Your <span className="gradient-text-gold drop-shadow-md">Divine Purpose</span> & Community
-          </h1>
+          {/* Bottom Container: Action Buttons & Live Stats Strip */}
+          <div className="space-y-4 sm:space-y-6 pt-4 sm:pt-8">
+            {/* Key Call To Action Action Buttons */}
+            <div className="grid grid-cols-2 gap-2.5 sm:flex sm:flex-row sm:items-center sm:gap-4 max-w-xl">
+              <button
+                onClick={() => setActiveTab('events')}
+                className="flex items-center justify-center gap-1.5 sm:gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 px-3 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl font-extrabold text-[11px] sm:text-sm shadow-xl shadow-amber-500/30 transition-all btn-glow-gold btn-shimmer hover-lift whitespace-nowrap"
+              >
+                <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+                <span className="truncate">Upcoming Events</span>
+                <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 hidden xs:inline transition-transform group-hover:translate-x-1" />
+              </button>
 
-          <p className="text-slate-200 text-base sm:text-lg max-w-3xl leading-relaxed font-classic-body font-medium drop-shadow-xs">
-            {churchSettings.tagline}. Experience spiritual growth, fellowship, and 40 years of kingdom ministry.
-          </p>
-
-          {/* Key Call To Action Action Buttons */}
-          <div className="flex flex-wrap items-center gap-4 pt-4">
-            <button
-              onClick={() => setActiveTab('events')}
-              className="flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 px-6 py-3.5 rounded-2xl font-extrabold text-sm shadow-xl shadow-amber-500/30 transition-all btn-glow-gold btn-shimmer hover-lift"
-            >
-              <Calendar className="w-4 h-4" />
-              <span>Upcoming Events</span>
-              <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </button>
-
-            <button
-              onClick={() => setActiveTab('about')}
-              className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white border border-white/40 px-6 py-3.5 rounded-2xl font-bold text-sm backdrop-blur-md shadow-lg transition-all hover-lift btn-shimmer"
-            >
-              <span>Our Vision & Beliefs</span>
-            </button>
-          </div>
-
-          {/* Interactive Live Stats Strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-800/80 max-w-4xl text-xs">
-            <div className="flex items-center gap-2.5">
-              <Award className="w-5 h-5 text-amber-400 shrink-0" />
-              <div>
-                <div className="font-extrabold text-white text-base">40+ Years</div>
-                <div className="text-[11px] text-slate-400">Spiritual Legacy</div>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-2.5">
-              <Users className="w-5 h-5 text-emerald-400 shrink-0" />
-              <div>
-                <div className="font-extrabold text-white text-base">1,200+</div>
-                <div className="text-[11px] text-slate-400">Active Family</div>
-              </div>
+              <button
+                onClick={() => setActiveTab('about')}
+                className="flex items-center justify-center gap-1.5 sm:gap-2 bg-white/20 hover:bg-white/30 text-white border border-white/40 px-3 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl font-bold text-[11px] sm:text-sm backdrop-blur-md shadow-lg transition-all hover-lift btn-shimmer whitespace-nowrap"
+              >
+                <span className="truncate">Our Vision & Beliefs</span>
+              </button>
             </div>
 
-            <div className="flex items-center gap-2.5">
-              <Cross className="w-5 h-5 text-amber-400 shrink-0" />
-              <div>
-                <div className="font-extrabold text-white text-base">8 Ministries</div>
-                <div className="text-[11px] text-slate-400">Active Outreach</div>
+            {/* Interactive Live Stats Strip (Single Row Anchored at Bottom) */}
+            <div className="grid grid-cols-4 gap-1.5 sm:gap-4 pt-4 sm:pt-5 border-t border-slate-800/80 max-w-4xl text-xs">
+              <div className="flex items-center gap-1 sm:gap-2.5 min-w-0">
+                <Award className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-amber-400 shrink-0" />
+                <div className="min-w-0">
+                  <div className="font-extrabold text-white text-[10px] sm:text-base leading-tight truncate">40+ Years</div>
+                  <div className="text-[8px] sm:text-[11px] text-slate-400 leading-tight truncate">Spiritual Legacy</div>
+                </div>
               </div>
-            </div>
+              
+              <div className="flex items-center gap-1 sm:gap-2.5 min-w-0">
+                <Users className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-emerald-400 shrink-0" />
+                <div className="min-w-0">
+                  <div className="font-extrabold text-white text-[10px] sm:text-base leading-tight truncate">1,200+</div>
+                  <div className="text-[8px] sm:text-[11px] text-slate-400 leading-tight truncate">Active Family</div>
+                </div>
+              </div>
 
-            <div className="flex items-center gap-2.5">
-              <Sparkles className="w-5 h-5 text-indigo-400 shrink-0" />
-              <div>
-                <div className="font-extrabold text-white text-base">Smart Gate</div>
-                <div className="text-[11px] text-slate-400">QR Digitalization</div>
+              <div className="flex items-center gap-1 sm:gap-2.5 min-w-0">
+                <Cross className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-amber-400 shrink-0" />
+                <div className="min-w-0">
+                  <div className="font-extrabold text-white text-[10px] sm:text-base leading-tight truncate">8 Ministries</div>
+                  <div className="text-[8px] sm:text-[11px] text-slate-400 leading-tight truncate">Active Outreach</div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1 sm:gap-2.5 min-w-0">
+                <Sparkles className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-indigo-400 shrink-0" />
+                <div className="min-w-0">
+                  <div className="font-extrabold text-white text-[10px] sm:text-base leading-tight truncate">Smart Gate</div>
+                  <div className="text-[8px] sm:text-[11px] text-slate-400 leading-tight truncate">QR Digitalization</div>
+                </div>
               </div>
             </div>
           </div>
@@ -139,24 +131,24 @@ export const HomeHero = ({ setActiveTab }) => {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
             {churchSettings.serviceTimings.map((service, idx) => (
               <div
                 key={idx}
-                className={`bg-white p-4.5 rounded-2xl border border-slate-200/90 space-y-3 card-interactive-glow animate-fadeInUp stagger-${(idx % 4) + 1}`}
+                className={`bg-white p-3 sm:p-4.5 rounded-2xl border border-slate-200/90 space-y-2 sm:space-y-3 card-interactive-glow animate-fadeInUp stagger-${(idx % 4) + 1}`}
               >
-                <div className="w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center font-bold text-sm">
-                  <Clock className="w-4 h-4 animate-pulse text-amber-600" />
+                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center font-bold text-xs sm:text-sm">
+                  <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-pulse text-amber-600" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-700 block">
+                  <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-amber-700 block">
                     {service.day}
                   </span>
-                  <h3 className="text-xs font-bold text-slate-900 mt-0.5">{service.name}</h3>
+                  <h3 className="text-[11px] sm:text-xs font-bold text-slate-900 mt-0.5 leading-snug">{service.name}</h3>
                 </div>
-                <div className="pt-2 border-t border-slate-100 text-xs space-y-0.5">
-                  <p className="text-amber-800 font-extrabold text-[11px]">{service.time}</p>
-                  <p className="text-slate-500 text-[10px]">{service.location}</p>
+                <div className="pt-1.5 sm:pt-2 border-t border-slate-100 text-[10px] sm:text-xs space-y-0.5">
+                  <p className="text-amber-800 font-extrabold text-[10px] sm:text-[11px]">{service.time}</p>
+                  <p className="text-slate-500 text-[9px] sm:text-[10px] truncate">{service.location}</p>
                 </div>
               </div>
             ))}

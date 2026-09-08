@@ -262,13 +262,13 @@ export const AdminDashboard = ({ setActiveTab, onOpenWorkerForm }) => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
         
         {/* Fast Action Executive Commands */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-white p-7 rounded-3xl border border-slate-800 shadow-xl space-y-5 flex flex-col justify-between relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="lg:col-span-5 bg-white p-7 rounded-3xl border border-slate-200 shadow-sm space-y-5 flex flex-col justify-between relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="space-y-4 relative z-10">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <span className="text-xs font-extrabold uppercase tracking-wider text-amber-400 flex items-center gap-1.5 font-serif-spiritual">
-                <Sparkles className="w-4 h-4 text-amber-400" /> Executive Quick Actions
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <span className="text-xs font-extrabold uppercase tracking-wider text-amber-800 flex items-center gap-1.5 font-serif-spiritual">
+                <Sparkles className="w-4 h-4 text-amber-600" /> Executive Quick Actions
               </span>
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
             </div>
@@ -276,53 +276,53 @@ export const AdminDashboard = ({ setActiveTab, onOpenWorkerForm }) => {
             <div className="space-y-2.5">
               <button
                 onClick={() => setActiveTab('admin-families')}
-                className="w-full p-3 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-amber-400 hover:bg-slate-800 text-left transition-all group flex items-center justify-between text-xs"
+                className="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 hover:border-amber-400 hover:bg-amber-50/30 text-left transition-all group flex items-center justify-between text-xs"
               >
-                <span className="flex items-center gap-2.5 font-bold text-slate-100 group-hover:text-amber-300">
-                  <Plus className="w-4 h-4 text-amber-400" />
+                <span className="flex items-center gap-2.5 font-bold text-slate-900 group-hover:text-amber-800">
+                  <Plus className="w-4 h-4 text-amber-600" />
                   Register New Family / Member
                 </span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-600 group-hover:translate-x-1 transition-all" />
               </button>
 
               <button
                 onClick={() => setActiveTab('admin-leave')}
-                className="w-full p-3 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-emerald-400 hover:bg-slate-800 text-left transition-all group flex items-center justify-between text-xs"
+                className="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 hover:border-emerald-400 hover:bg-emerald-50/30 text-left transition-all group flex items-center justify-between text-xs"
               >
-                <span className="flex items-center gap-2.5 font-bold text-slate-100 group-hover:text-emerald-300">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span className="flex items-center gap-2.5 font-bold text-slate-900 group-hover:text-emerald-800">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                   Review Staff Leave Applications
                 </span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600 group-hover:translate-x-1 transition-all" />
               </button>
 
               <button
                 onClick={() => setActiveTab('admin-schedules')}
-                className="w-full p-3 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-blue-400 hover:bg-slate-800 text-left transition-all group flex items-center justify-between text-xs"
+                className="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 hover:border-blue-400 hover:bg-blue-50/30 text-left transition-all group flex items-center justify-between text-xs"
               >
-                <span className="flex items-center gap-2.5 font-bold text-slate-100 group-hover:text-blue-300">
-                  <Calendar className="w-4 h-4 text-blue-400" />
+                <span className="flex items-center gap-2.5 font-bold text-slate-900 group-hover:text-blue-800">
+                  <Calendar className="w-4 h-4 text-blue-600" />
                   Assign Roster & Service Duties
                 </span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
               </button>
 
               <button
                 onClick={() => setActiveTab('admin-events')}
-                className="w-full p-3 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-purple-400 hover:bg-slate-800 text-left transition-all group flex items-center justify-between text-xs"
+                className="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 hover:border-purple-400 hover:bg-purple-50/30 text-left transition-all group flex items-center justify-between text-xs"
               >
-                <span className="flex items-center gap-2.5 font-bold text-slate-100 group-hover:text-purple-300">
-                  <Plus className="w-4 h-4 text-purple-400" />
+                <span className="flex items-center gap-2.5 font-bold text-slate-900 group-hover:text-purple-800">
+                  <Plus className="w-4 h-4 text-purple-600" />
                   Publish Event & Announcement
                 </span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-purple-400 group-hover:translate-x-1 transition-all" />
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
               </button>
             </div>
           </div>
 
-          <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 relative z-10">
-            <span>Security Status: <strong>Protected</strong></span>
-            <span className="text-amber-400 font-semibold">Active Session</span>
+          <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 relative z-10 font-medium">
+            <span>Security Status: <strong className="text-slate-800">Protected</strong></span>
+            <span className="text-amber-800 font-bold">Active Session</span>
           </div>
         </div>
 

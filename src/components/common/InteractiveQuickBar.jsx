@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useChurch } from '../../context/ChurchContext';
 import {
   Sparkles,
@@ -22,6 +22,7 @@ export const InteractiveQuickBar = ({
   onOpenQRScanner,
   onOpenIDCard,
   onOpenPrayerModal,
+  onOpenGivingModal,
   setActiveTab
 }) => {
   const { churchSettings, currentUser, mediaLibrary, events } = useChurch();
@@ -35,6 +36,97 @@ export const InteractiveQuickBar = ({
     { sender: 'bot', text: `Grace & Peace! 👋 I am the ${churchSettings.name} Digital Concierge. How can I assist your worship today?` }
   ]);
   const [inputQuery, setInputQuery] = useState('');
+  const messagesEndRef = useRef(null);
+
+  // Dragging State & Refs
+  const [position, setPosition] = useState(null);
+  const isDraggingRef = useRef(false);
+  const hasMovedRef = useRef(false);
+  const dragStartRef = useRef({ x: 0, y: 0 });
+  const initialPosRef = useRef({ x: 0, y: 0 });
+  const wrapperRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      scrollToBottom();
+    }
+  }, [messages, isOpen]);
+
+  // Handle Dragging Events (Mouse & Touch)
+  const handlePointerDown = (e) => {
+    if (e.button !== undefined && e.button !== 0) return;
+
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    dragStartRef.current = { x: clientX, y: clientY };
+
+    if (wrapperRef.current) {
+      const rect = wrapperRef.current.getBoundingClientRect();
+      initialPosRef.current = { x: rect.left, y: rect.top };
+    }
+
+    isDraggingRef.current = true;
+    hasMovedRef.current = false;
+  };
+
+  useEffect(() => {
+    const handlePointerMove = (e) => {
+      if (!isDraggingRef.current) return;
+
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      const deltaX = clientX - dragStartRef.current.x;
+      const deltaY = clientY - dragStartRef.current.y;
+
+      if (Math.hypot(deltaX, deltaY) > 5) {
+        hasMovedRef.current = true;
+      }
+
+      let newX = initialPosRef.current.x + deltaX;
+      let newY = initialPosRef.current.y + deltaY;
+
+      // Clamp within viewport
+      const minX = 10;
+      const maxX = window.innerWidth - (wrapperRef.current?.offsetWidth || 80) - 10;
+      const minY = 10;
+      const maxY = window.innerHeight - (wrapperRef.current?.offsetHeight || 80) - 10;
+
+      newX = Math.max(minX, Math.min(maxX, newX));
+      newY = Math.max(minY, Math.min(maxY, newY));
+
+      setPosition({ x: newX, y: newY });
+    };
+
+    const handlePointerUp = () => {
+      isDraggingRef.current = false;
+    };
+
+    window.addEventListener('mousemove', handlePointerMove);
+    window.addEventListener('mouseup', handlePointerUp);
+    window.addEventListener('touchmove', handlePointerMove, { passive: false });
+    window.addEventListener('touchend', handlePointerUp);
+
+    return () => {
+      window.removeEventListener('mousemove', handlePointerMove);
+      window.removeEventListener('mouseup', handlePointerUp);
+      window.removeEventListener('touchmove', handlePointerMove);
+      window.removeEventListener('touchend', handlePointerUp);
+    };
+  }, []);
+
+  const handleOrbClick = () => {
+    if (hasMovedRef.current) {
+      hasMovedRef.current = false;
+      return;
+    }
+    setIsOpen(!isOpen);
+  };
 
   const handleSendMessage = (e) => {
     e?.preventDefault();
@@ -45,7 +137,6 @@ export const InteractiveQuickBar = ({
     setMessages(newMsgs);
     setInputQuery('');
 
-    // Automated Interactive Assistant Logic
     setTimeout(() => {
       let reply = "Thank you for reaching out! You can explore our events schedule, stream Sunday sermons, or connect with our pastoral care team directly here.";
       const lower = userText.toLowerCase();
@@ -66,9 +157,34 @@ export const InteractiveQuickBar = ({
     }, 600);
   };
 
-  return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+  // Determine dynamic placement for drawer based on current dragged position
+  const isTopHalf = position && position.y < window.innerHeight / 2;
+  const isLeftHalf = position && position.x < window.innerWidth / 2;
 
+  return (
+    <div
+      ref={wrapperRef}
+      style={
+        position
+          ? {
+              position: 'fixed',
+              left: `${position.x}px`,
+              top: `${position.y}px`,
+              bottom: 'auto',
+              right: 'auto'
+            }
+          : {}
+      }
+      className={`fixed z-50 flex ${
+        isTopHalf ? 'flex-col-reverse' : 'flex-col'
+      } ${
+        !position
+          ? 'bottom-4 right-4 sm:bottom-6 sm:right-6 items-end'
+          : isLeftHalf
+          ? 'items-start'
+          : 'items-end'
+      }`}
+    >
       {/* FLOATING AUDIO SERMON STREAMING STRIP (IF PLAYING) */}
       {isPlaying && (
         <div className="mb-3 bg-slate-900/95 backdrop-blur-xl text-white p-3.5 rounded-2xl border border-amber-500/40 shadow-2xl flex items-center gap-3 animate-fadeInUp max-w-sm w-full">
@@ -95,37 +211,52 @@ export const InteractiveQuickBar = ({
 
       {/* EXPANDABLE INTERACTIVE WIDGET DRAWER */}
       {isOpen && (
-        <div className="mb-4 w-[340px] sm:w-[380px] bg-white/98 backdrop-blur-2xl border border-slate-200 rounded-3xl shadow-2xl overflow-hidden animate-scaleIn flex flex-col max-h-[520px]">
+        <div className={`${isTopHalf ? 'mt-4' : 'mb-4'} w-[calc(100vw-2rem)] sm:w-[380px] bg-white/98 backdrop-blur-2xl border border-slate-200 rounded-3xl shadow-2xl overflow-hidden animate-scaleIn flex flex-col max-h-[80vh] sm:max-h-[520px]`}>
 
-          {/* Drawer Top Header */}
-          <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white p-4 flex items-center justify-between border-b border-amber-500/30">
+          {/* Drawer Top Header - DRAGGABLE HEADER BAR */}
+          <div 
+            onMouseDown={handlePointerDown}
+            onTouchStart={handlePointerDown}
+            className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 text-slate-950 p-4 flex items-center justify-between shadow-sm cursor-grab active:cursor-grabbing select-none"
+          >
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400">
-                <Bot className="w-4 h-4 animate-bounce" />
+              <div className="w-8.5 h-8.5 rounded-xl bg-slate-950/15 border border-slate-950/20 flex items-center justify-center text-slate-950 shadow-2xs">
+                <Bot className="w-4.5 h-4.5 animate-bounce" />
               </div>
               <div>
-                <h3 className="font-serif-spiritual text-sm font-bold text-amber-300">
+                <h3 className="font-serif-spiritual text-sm font-extrabold text-slate-950 tracking-wide">
                   Church Concierge & Actions
                 </h3>
-                <p className="text-[10px] text-slate-400">Live AI Assistant & Member Pass</p>
+                <p className="text-[10px] text-amber-950/80 font-bold">Live AI Assistant & Member Pass (Drag me)</p>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 transition-colors"
+              className="p-1.5 rounded-xl bg-slate-950/10 hover:bg-slate-950/20 text-slate-950 transition-colors font-bold"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
           {/* Quick Interactive Actions Row */}
-          <div className="p-3 bg-slate-50 border-b border-slate-200 grid grid-cols-3 gap-2">
+          <div className="p-3 bg-slate-50 border-b border-slate-200 grid grid-cols-4 gap-1.5">
+            <button
+              onClick={() => {
+                onOpenGivingModal();
+                setIsOpen(false);
+              }}
+              className="p-2 rounded-2xl bg-white border border-slate-200 hover:border-amber-400 text-slate-800 flex flex-col items-center gap-1 text-[10px] font-bold shadow-2xs hover-lift transition-all group"
+            >
+              <Sparkles className="w-4 h-4 text-emerald-600 group-hover:scale-110 transition-transform" />
+              <span>Giving</span>
+            </button>
+
             <button
               onClick={() => {
                 onOpenIDCard(currentUser || { name: 'Church Member', id: 'CH-00121' });
                 setIsOpen(false);
               }}
-              className="p-2.5 rounded-2xl bg-white border border-slate-200 hover:border-amber-400 text-slate-800 flex flex-col items-center gap-1.5 text-[11px] font-bold shadow-xs hover-lift transition-all group"
+              className="p-2 rounded-2xl bg-white border border-slate-200 hover:border-amber-400 text-slate-800 flex flex-col items-center gap-1 text-[10px] font-bold shadow-2xs hover-lift transition-all group"
             >
               <CreditCard className="w-4 h-4 text-amber-600 group-hover:scale-110 transition-transform" />
               <span>Digital ID</span>
@@ -136,7 +267,7 @@ export const InteractiveQuickBar = ({
                 onOpenQRScanner();
                 setIsOpen(false);
               }}
-              className="p-2.5 rounded-2xl bg-white border border-slate-200 hover:border-amber-400 text-slate-800 flex flex-col items-center gap-1.5 text-[11px] font-bold shadow-xs hover-lift transition-all group"
+              className="p-2 rounded-2xl bg-white border border-slate-200 hover:border-amber-400 text-slate-800 flex flex-col items-center gap-1 text-[10px] font-bold shadow-2xs hover-lift transition-all group"
             >
               <QrCode className="w-4 h-4 text-amber-600 group-hover:scale-110 transition-transform" />
               <span>Gate Scan</span>
@@ -148,10 +279,10 @@ export const InteractiveQuickBar = ({
                 setIsPlaying(true);
                 setIsOpen(false);
               }}
-              className="p-2.5 rounded-2xl bg-white border border-slate-200 hover:border-amber-400 text-slate-800 flex flex-col items-center gap-1.5 text-[11px] font-bold shadow-xs hover-lift transition-all group"
+              className="p-2 rounded-2xl bg-white border border-slate-200 hover:border-amber-400 text-slate-800 flex flex-col items-center gap-1 text-[10px] font-bold shadow-2xs hover-lift transition-all group"
             >
               <Volume2 className="w-4 h-4 text-amber-600 group-hover:scale-110 transition-transform" />
-              <span>Stream Sermon</span>
+              <span>Sermon</span>
             </button>
           </div>
 
@@ -173,6 +304,7 @@ export const InteractiveQuickBar = ({
                 </div>
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Chat Input Prompt Form */}
@@ -194,11 +326,13 @@ export const InteractiveQuickBar = ({
         </div>
       )}
 
-      {/* FLOATING ACTION TRIGGER ORB - PERFECT CIRCLE */}
+      {/* FLOATING ACTION TRIGGER ORB - DRAGGABLE PERFECT CIRCLE */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="group relative w-14 h-14 rounded-full bg-gradient-to-tr from-amber-600 via-amber-500 to-amber-400 text-slate-950 shadow-2xl flex items-center justify-center border-2 border-amber-300/60 hover-lift hover-glow-amber animate-pulseGlow transition-all"
-        title="Church AI Concierge & Quick Actions"
+        onMouseDown={handlePointerDown}
+        onTouchStart={handlePointerDown}
+        onClick={handleOrbClick}
+        className="group relative w-14 h-14 rounded-full bg-gradient-to-tr from-amber-600 via-amber-500 to-amber-400 text-slate-950 shadow-2xl flex items-center justify-center border-2 border-amber-300/60 hover-lift hover-glow-amber animate-pulseGlow transition-transform duration-100 cursor-grab active:cursor-grabbing select-none"
+        title="Drag anywhere • Click to open AI Concierge & Actions"
       >
         {isOpen ? (
           <X className="w-6 h-6 text-slate-950 transition-transform rotate-90" />

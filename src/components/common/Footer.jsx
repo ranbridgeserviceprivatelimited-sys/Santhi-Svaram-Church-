@@ -11,56 +11,56 @@ export const Footer = ({ setActiveTab }) => {
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600" />
       <div className="absolute top-0 left-1/4 w-80 h-80 bg-amber-100/20 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-6 border-b border-slate-200/80">
+      <div className="w-full px-4 sm:px-8 lg:px-12 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 pb-8 border-b border-slate-200/80">
           
           {/* Col 1: Brand Info */}
-          <div className="space-y-2.5">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-slate-950 text-xl font-bold shadow-xs">
+          <div className="space-y-3.5 pr-2">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-slate-950 text-xl font-bold shadow-xs">
                 {churchSettings.logo || '⛪'}
               </div>
               <div>
                 <span className="font-serif-spiritual text-base font-bold text-slate-900 tracking-wide block leading-tight">
                   {churchSettings.name}
                 </span>
-                <span className="text-[9px] text-amber-700 font-bold tracking-wider uppercase block">
+                <span className="text-[9px] text-amber-700 font-bold tracking-wider uppercase block mt-0.5">
                   A Place of Worship & Purpose
                 </span>
               </div>
             </div>
             
-            <p className="text-[11px] text-slate-600 leading-snug font-medium">
+            <p className="text-[11px] text-slate-600 leading-relaxed font-medium">
               {churchSettings.tagline}
             </p>
             
-            <div className="p-2 rounded-lg bg-amber-50/70 border border-amber-200/70 text-slate-800 text-[11px] italic space-y-0.5">
+            <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200/70 text-slate-800 text-[11px] italic space-y-1">
               <div className="flex items-center gap-1 text-amber-800 font-bold text-[10px] not-italic">
                 <Cross className="w-3 h-3 text-amber-700" /> Divine Mission
               </div>
-              <p className="text-[10px] leading-tight text-slate-700 font-medium">
+              <p className="text-[10px] leading-relaxed text-slate-700 font-medium">
                 "Equipping every believer to discover their divine purpose and serve passionately."
               </p>
             </div>
           </div>
 
           {/* Col 2: Service Timings */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <h4 className="text-[11px] font-bold uppercase tracking-wider text-amber-800 flex items-center gap-1.5 font-serif-spiritual">
               <Clock className="w-3.5 h-3.5 text-amber-600" />
               Worship & Service Timings
             </h4>
-            <div className="space-y-1.5 text-[11px]">
+            <div className="space-y-2.5 text-[11px]">
               {churchSettings.serviceTimings.map((st, idx) => (
                 <div 
                   key={idx} 
-                  className="bg-slate-50 p-2 rounded-lg border border-slate-200/80 hover:border-amber-400 hover:bg-amber-50/20 transition-all duration-150 group shadow-2xs"
+                  className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 hover:border-amber-400 hover:bg-amber-50/20 transition-all duration-150 group shadow-2xs space-y-1"
                 >
                   <div className="font-bold text-slate-900 group-hover:text-amber-800 transition-colors flex items-center justify-between text-[11px]">
                     <span>{st.day} - {st.name}</span>
                   </div>
-                  <div className="text-amber-700 text-[10px] font-extrabold mt-0.5">{st.time}</div>
-                  <div className="text-slate-500 text-[10px] font-medium mt-0.5 flex items-center gap-1">
+                  <div className="text-amber-700 text-[10px] font-extrabold">{st.time}</div>
+                  <div className="text-slate-500 text-[10px] font-medium flex items-center gap-1 pt-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
                     {st.location}
                   </div>
@@ -70,12 +70,12 @@ export const Footer = ({ setActiveTab }) => {
           </div>
 
           {/* Col 3: Quick Navigation */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <h4 className="text-[11px] font-bold uppercase tracking-wider text-amber-800 flex items-center gap-1.5 font-serif-spiritual">
               <Sparkles className="w-3.5 h-3.5 text-amber-600" />
               Explore Church
             </h4>
-            <ul className="space-y-1.5 text-[11px]">
+            <ul className="space-y-2 text-[11px]">
               {[
                 { id: 'home', label: 'Home Overview' },
                 { id: 'about', label: 'Church History & Beliefs' },
@@ -93,10 +93,10 @@ export const Footer = ({ setActiveTab }) => {
                 </li>
               ))}
               
-              <li className="pt-1.5 border-t border-slate-200 space-y-1.5">
+              <li className="pt-2 border-t border-slate-200 space-y-2">
                 <button 
                   onClick={() => setActiveTab('worker-dashboard')} 
-                  className="w-full flex items-center justify-between px-2 py-1.5 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-800 hover:bg-emerald-100 transition-all text-[11px] font-semibold"
+                  className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 hover:bg-emerald-100 transition-all text-[11px] font-semibold"
                 >
                   <span className="flex items-center gap-1.5">
                     <UserCheck className="w-3 h-3 text-emerald-600" />
@@ -105,28 +105,19 @@ export const Footer = ({ setActiveTab }) => {
                   <ChevronRight className="w-3 h-3 text-emerald-600" />
                 </button>
 
-                <button 
-                  onClick={() => setActiveTab('admin-dashboard')} 
-                  className="w-full flex items-center justify-between px-2 py-1.5 rounded-md bg-amber-50 border border-amber-200 text-amber-900 hover:bg-amber-100 transition-all text-[11px] font-semibold"
-                >
-                  <span className="flex items-center gap-1.5">
-                    <Shield className="w-3 h-3 text-amber-700" />
-                    Admin Control Panel
-                  </span>
-                  <ChevronRight className="w-3 h-3 text-amber-700" />
-                </button>
+
               </li>
             </ul>
           </div>
 
           {/* Col 4: Contact Info */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <h4 className="text-[11px] font-bold uppercase tracking-wider text-amber-800 flex items-center gap-1.5 font-serif-spiritual">
               <MapPin className="w-3.5 h-3.5 text-amber-600" />
               Church Office
             </h4>
-            <div className="space-y-2 text-[11px]">
-              <div className="flex items-start gap-2.5 p-2 rounded-lg bg-slate-50 border border-slate-200/80">
+            <div className="space-y-2.5 text-[11px]">
+              <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
                 <div className="w-7 h-7 rounded-md bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-800 shrink-0 mt-0.5">
                   <MapPin className="w-3.5 h-3.5" />
                 </div>
@@ -136,7 +127,7 @@ export const Footer = ({ setActiveTab }) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2.5 p-2 rounded-lg bg-slate-50 border border-slate-200/80">
+              <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
                 <div className="w-7 h-7 rounded-md bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-800 shrink-0">
                   <Phone className="w-3.5 h-3.5" />
                 </div>
@@ -148,13 +139,13 @@ export const Footer = ({ setActiveTab }) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2.5 p-2 rounded-lg bg-slate-50 border border-slate-200/80">
+              <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
                 <div className="w-7 h-7 rounded-md bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-800 shrink-0">
                   <Mail className="w-3.5 h-3.5" />
                 </div>
-                <div className="space-y-0.5">
+                <div className="space-y-0.5 min-w-0 flex-1">
                   <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider block">Email Support</span>
-                  <a href={`mailto:${churchSettings.email}`} className="text-slate-900 hover:text-amber-700 transition-colors font-semibold truncate block text-[11px]">
+                  <a href={`mailto:${churchSettings.email}`} className="text-slate-900 hover:text-amber-700 transition-colors font-semibold truncate block text-[11px]" title={churchSettings.email}>
                     {churchSettings.email}
                   </a>
                 </div>

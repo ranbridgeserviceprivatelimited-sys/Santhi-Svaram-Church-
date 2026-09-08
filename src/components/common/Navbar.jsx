@@ -23,7 +23,7 @@ import {
   FolderLock
 } from 'lucide-react';
 
-export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRScanner, onOpenPrayerModal }) => {
+export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRScanner, onOpenPrayerModal, onOpenGivingModal }) => {
   const { currentRole, currentUser, switchRole, notifications, churchSettings, churches, currentChurch, setCurrentChurch } = useChurch();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
@@ -109,7 +109,15 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenNotifications, onOpenQRS
             </div>
 
             {/* Right: Quick Action Controls */}
-            <div className="hidden md:flex items-center gap-3 shrink-0">
+            <div className="hidden md:flex items-center gap-2.5 shrink-0">
+              <button
+                onClick={onOpenGivingModal}
+                className="btn-shimmer btn-interactive-spring flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-xl font-bold text-xs shadow-xs transition-all whitespace-nowrap"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-emerald-200 animate-spark" />
+                <span>Online Giving</span>
+              </button>
+
               <button
                 onClick={onOpenPrayerModal}
                 className="btn-shimmer btn-interactive-spring flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl font-extrabold text-xs shadow-2xs transition-all whitespace-nowrap"

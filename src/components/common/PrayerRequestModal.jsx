@@ -46,7 +46,7 @@ export const PrayerRequestModal = ({ isOpen, onClose }) => {
                 Prayer & Praise Intercession
               </h3>
               <p className="text-[11px] text-amber-950 font-bold uppercase tracking-wider">
-                {churchSettings?.name || 'Santhi Svaram Church'} Prayer Network
+                {churchSettings?.name || 'Santhi Swarm Church'} Prayer Network
               </p>
             </div>
           </div>

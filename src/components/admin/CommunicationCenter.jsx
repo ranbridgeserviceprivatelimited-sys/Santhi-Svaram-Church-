@@ -22,7 +22,7 @@ export const CommunicationCenter = () => {
     });
 
     // Generate WhatsApp click-to-send broadcast link
-    const waText = encodeURIComponent(`*${title}*\n\n${content}\n\n_${churchSettings?.name || 'Santhi Svaram Church'} Digital Announcement_`);
+    const waText = encodeURIComponent(`*${title}*\n\n${content}\n\n_${churchSettings?.name || 'Santhi Swarm Church'} Digital Announcement_`);
     const waUrl = `https://api.whatsapp.com/send?text=${waText}`;
     setLastWhatsappLink(waUrl);
 

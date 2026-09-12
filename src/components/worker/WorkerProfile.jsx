@@ -58,7 +58,7 @@ export const WorkerProfile = () => {
             <div className="border-b border-slate-100 pb-4">
               <span className="text-3xl font-extrabold block">⛪</span>
               <h2 className="font-serif-spiritual text-lg font-bold text-slate-900 tracking-wider uppercase">
-                {churchSettings?.name || 'Santhi Svaram Church'}
+                {churchSettings?.name || 'Santhi Swarm Church'}
               </h2>
               <span className="text-[10px] text-amber-700 font-extrabold uppercase tracking-widest block mt-0.5">
                 Official Church Worker Identification
@@ -93,7 +93,7 @@ export const WorkerProfile = () => {
             </div>
 
             <div className="text-[10px] text-slate-400 border-t border-slate-100 pt-3 italic">
-              Property of {churchSettings?.name || 'Santhi Svaram Church'}. Scannable at all church entrance kiosks.
+              Property of {churchSettings?.name || 'Santhi Swarm Church'}. Scannable at all church entrance kiosks.
             </div>
           </div>
         </div>

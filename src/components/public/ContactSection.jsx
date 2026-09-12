@@ -25,7 +25,7 @@ export const ContactSection = () => {
           Reach Out to Us
         </span>
         <h1 className="font-serif-spiritual text-4xl sm:text-5xl font-extrabold text-slate-900">
-          Contact <span className="gradient-text-gold">Grace Community</span>
+          Contact <span className="gradient-text-gold">{churchSettings.name}</span>
         </h1>
         <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
           We would love to pray with you, answer your questions, or welcome you to our next service.

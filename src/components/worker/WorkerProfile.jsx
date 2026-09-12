@@ -4,7 +4,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { Shield, Printer } from 'lucide-react';
 
 export const WorkerProfile = () => {
-  const { currentUser } = useChurch();
+  const { currentUser, churchSettings } = useChurch();
   const worker = currentUser || {
     id: 'WRK-1001',
     name: 'John Carter',
@@ -57,8 +57,8 @@ export const WorkerProfile = () => {
             {/* Church Watermark Header */}
             <div className="border-b border-slate-100 pb-4">
               <span className="text-3xl font-extrabold block">⛪</span>
-              <h2 className="font-serif-spiritual text-lg font-bold text-slate-900 tracking-wider">
-                GRACE COMMUNITY CHURCH
+              <h2 className="font-serif-spiritual text-lg font-bold text-slate-900 tracking-wider uppercase">
+                {churchSettings?.name || 'Santhi Svaram Church'}
               </h2>
               <span className="text-[10px] text-amber-700 font-extrabold uppercase tracking-widest block mt-0.5">
                 Official Church Worker Identification
@@ -93,7 +93,7 @@ export const WorkerProfile = () => {
             </div>
 
             <div className="text-[10px] text-slate-400 border-t border-slate-100 pt-3 italic">
-              Property of Grace Community Church. Scannable at all church entrance kiosks.
+              Property of {churchSettings?.name || 'Santhi Svaram Church'}. Scannable at all church entrance kiosks.
             </div>
           </div>
         </div>

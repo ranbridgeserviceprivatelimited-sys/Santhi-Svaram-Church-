@@ -53,7 +53,8 @@ export const ChurchProvider = ({ children }) => {
       try {
         const parsed = JSON.parse(s);
         return { 
-          ...parsed, 
+          ...parsed,
+          name: (!parsed.name || parsed.name === 'Grace Community Church') ? initialChurchSettings.name : parsed.name,
           pastorPhoto: initialChurchSettings.pastorPhoto,
           address: initialChurchSettings.address,
           phone: initialChurchSettings.phone,

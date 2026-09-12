@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useChurch } from '../../context/ChurchContext';
 import { X, HeartHandshake, Send, CheckCircle2, Sparkles, Lock, Globe, Flame } from 'lucide-react';
 
 export const PrayerRequestModal = ({ isOpen, onClose }) => {
+  const { churchSettings } = useChurch();
   const [requestType, setRequestType] = useState('Prayer'); // 'Prayer' or 'Praise'
   const [category, setCategory] = useState('Healing & Health');
   const [name, setName] = useState('');
@@ -44,7 +46,7 @@ export const PrayerRequestModal = ({ isOpen, onClose }) => {
                 Prayer & Praise Intercession
               </h3>
               <p className="text-[11px] text-amber-950 font-bold uppercase tracking-wider">
-                Grace Community Prayer Network
+                {churchSettings?.name || 'Santhi Svaram Church'} Prayer Network
               </p>
             </div>
           </div>

@@ -22,26 +22,22 @@ export const HomeHero = ({ setActiveTab }) => {
       {/* Animated Cover Banner Section */}
       <section className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-amber-500/20 shadow-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white min-h-[420px] sm:min-h-[540px] flex items-center group">
 
-        {/* Dynamic Animated Background Image & Warm Radiant Overlay Scrim */}
+        {/* Clean Background Image (No Light Orbs, High Visibility) */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img
             src={churchSettings.churchPhoto}
             alt="Church Sanctuary"
-            className="w-full h-full object-cover object-center opacity-50 scale-100 group-hover:scale-105 transition-transform duration-1000"
+            className="w-full h-full object-cover object-center opacity-85 transition-transform duration-1000"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/50 to-slate-950/85" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 to-slate-950/70" />
-          
-          {/* Animated Light Orbs */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
-          <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none animate-orb-2" />
+          {/* Subtle Scrim Gradient for Crisp Text Contrast */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-slate-950/30" />
         </div>
 
         {/* Hero Content Box */}
         <div className="relative z-10 w-full px-5 py-6 sm:px-8 sm:py-12 lg:p-16 flex flex-col justify-end min-h-[420px] sm:min-h-[540px] space-y-4 sm:space-y-6">
           
           <div className="space-y-3 sm:space-y-5 mt-auto mb-4 sm:mb-8">
-            <h1 className="font-serif-spiritual text-2xl sm:text-4xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight max-w-4xl drop-shadow-md">
+            <h1 className="font-serif-spiritual text-xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold text-white leading-tight tracking-tight max-w-full drop-shadow-md lg:whitespace-nowrap">
               Discover Your <span className="gradient-text-gold drop-shadow-md">Divine Purpose</span> & Community
             </h1>
 

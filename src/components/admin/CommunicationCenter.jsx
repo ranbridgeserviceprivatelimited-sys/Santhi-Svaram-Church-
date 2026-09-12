@@ -3,7 +3,7 @@ import { useChurch } from '../../context/ChurchContext';
 import { MessageSquare, Send, Share2, Users, Bell, CheckCircle2, Smartphone } from 'lucide-react';
 
 export const CommunicationCenter = () => {
-  const { communicationGroups, announcements, addAnnouncement } = useChurch();
+  const { communicationGroups, announcements, addAnnouncement, churchSettings } = useChurch();
   const [selectedGroup, setSelectedGroup] = useState(communicationGroups[0]?.name || '');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -22,7 +22,7 @@ export const CommunicationCenter = () => {
     });
 
     // Generate WhatsApp click-to-send broadcast link
-    const waText = encodeURIComponent(`*${title}*\n\n${content}\n\n_Grace Community Church Digital Announcement_`);
+    const waText = encodeURIComponent(`*${title}*\n\n${content}\n\n_${churchSettings?.name || 'Santhi Svaram Church'} Digital Announcement_`);
     const waUrl = `https://api.whatsapp.com/send?text=${waText}`;
     setLastWhatsappLink(waUrl);
 

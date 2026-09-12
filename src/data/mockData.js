@@ -1,10 +1,10 @@
 export const initialChurchSettings = {
-  name: "Grace Community Church",
+  name: "Santhi Svaram Church",
   tagline: "Preserving Heritage • Transforming Lives • Serving Humanity",
   logo: "⛪",
   pastorName: "Dr. Thomas & Sarah Anderson",
   pastorTitle: "Senior Lead Pastors",
-  pastorMessage: "Welcome home! Whether you're searching for spiritual strength, a supportive family, or a place to serve God using your gifts, Grace Community Church welcomes you with open arms. Join us as we grow together in faith, hope, and love.",
+  pastorMessage: "Welcome home! Whether you're searching for spiritual strength, a supportive family, or a place to serve God using your gifts, Santhi Svaram Church welcomes you with open arms. Join us as we grow together in faith, hope, and love.",
   pastorPhoto: "/paster.jpeg",
   churchPhoto: "https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=1200&q=80",
   address: "Bipass road purushottama patnam chilakaluripet 522616",
@@ -23,13 +23,13 @@ export const initialChurchSettings = {
   ],
   vision: "To cultivate a Christ-centered digital & physical community that preserves 40 years of sacred heritage, transforms families through intentional care, and serves the broader society through active social relief.",
   mission: "Equipping every member to discover their purpose, maintaining organized family stewardship, identifying and supporting those in need, and expanding social service across regions.",
-  history: "Founded in 1986 with just 12 faithful families in a humble prayer room, Grace Community Church has grown over 40 years into a vibrant fellowship of over 1,200 members and 450 families actively fulfilling God's calling.",
+  history: "Founded in 1986 with just 12 faithful families in a humble prayer room, Santhi Svaram Church has grown over 40 years into a vibrant fellowship of over 1,200 members and 450 families actively fulfilling God's calling.",
   foundedYear: 1986
 };
 
 // Multi-tenant Church Network
 export const initialChurches = [
-  { id: "CHU-01", name: "Grace Community Church (Main Campus)", location: "Covenant City", members: 1200, status: "Active Primary" },
+  { id: "CHU-01", name: "Santhi Svaram Church (Main Campus)", location: "Covenant City", members: 1200, status: "Active Primary" },
   { id: "CHU-02", name: "St. Mark Mission Chapel", location: "Eastside District", members: 350, status: "Active Branch" },
   { id: "CHU-03", name: "Faith Haven Outreach Center", location: "North Suburb", members: 220, status: "Active Branch" }
 ];
